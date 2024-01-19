@@ -1,1 +1,1 @@
-﻿
+﻿global using Restaurant.Domain.Common;

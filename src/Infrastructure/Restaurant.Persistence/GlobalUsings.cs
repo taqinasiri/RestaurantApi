@@ -1,1 +1,13 @@
-﻿
+﻿global using DNTCommon.Web.Core;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Diagnostics;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using Restaurant.Application.Extensions;
+global using Restaurant.Domain.Common;
+global using Restaurant.Domain.Entities;
+global using Restaurant.Persistence.Extensions;
+global using System.Data;
+global using System.Data.Common;
+global using System.Globalization;
