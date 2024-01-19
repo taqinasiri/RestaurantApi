@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Restaurant.Application.Contracts;
 using Restaurant.Application.Contracts.Identity;
+using Restaurant.Application.Contracts.Persistence;
 using Restaurant.Application.Models;
 using Restaurant.Persistence.Contexts;
 using Restaurant.Persistence.Interceptors;
@@ -19,8 +19,6 @@ public static class PersistenceServicesRegistration
     public static IServiceCollection AddPersistenceServices(this IServiceCollection services,IConfiguration configuration)
     {
         var siteSettings = configuration.Get<SiteSettings>(configuration.Bind);
-        if(siteSettings is null)
-            throw new ArgumentNullException(nameof(siteSettings)); //TODO
 
         services.AddDataBase(siteSettings.ConnectionStrings.ApplicationDbContextConnection);
         services.AddScoped<IDbInitializer,DbInitializer>();

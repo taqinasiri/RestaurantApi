@@ -1,3 +1,5 @@
+using Restaurant.Api.Middlewares;
+using Restaurant.Api.Models;
 using Restaurant.Application;
 using Restaurant.Infrastructure;
 using Restaurant.Persistence;
@@ -7,8 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 #region Register Services
 
 // Add services to the container.
-builder.Services.AddControllers();
-builder.Services.AddApplicationServices();
+builder.Services.AddControllers(configure =>
+{
+    configure.Filters.Add(new ProducesResponseTypeAttribute(typeof(ApiResult),StatusCodes.Status200OK));
+    configure.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status400BadRequest));
+});
+builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddInfrastructureServices(builder.Configuration);
 
@@ -32,6 +38,7 @@ if(app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseAuthorization();
 
