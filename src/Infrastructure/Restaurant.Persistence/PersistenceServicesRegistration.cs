@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Restaurant.Application.Contracts;
 using Restaurant.Application.Contracts.Identity;
 using Restaurant.Application.Models;
 using Restaurant.Persistence.Contexts;
 using Restaurant.Persistence.Interceptors;
+using Restaurant.Persistence.Services;
 using Restaurant.Persistence.Services.Identity;
-using System.Security.Claims;
 using System.Security.Principal;
 
 namespace Restaurant.Persistence;
@@ -23,12 +23,27 @@ public static class PersistenceServicesRegistration
             throw new ArgumentNullException(nameof(siteSettings)); //TODO
 
         services.AddDataBase(siteSettings.ConnectionStrings.ApplicationDbContextConnection);
+        services.AddScoped<IDbInitializer,DbInitializer>();
+
         services.AddIdentityServices();
         services.AddIdentityOptions(siteSettings);
 
         services.AddSingleton<IHttpContextAccessor,HttpContextAccessor>();
         services.AddSingleton<IPrincipal>(provider => provider.GetRequiredService<IHttpContextAccessor>()?.HttpContext?.User ?? ClaimsPrincipal.Current!);
         return services;
+    }
+
+    public static void InitializeDb(this IServiceProvider serviceProvider,IConfiguration configuration)
+    {
+        var siteSettings = configuration.Get<SiteSettings>(configuration.Bind);
+        using(var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
+        {
+            serviceProvider.RunScopedService<IDbInitializer>(DbInitialize =>
+            {
+                DbInitialize.Initialize();
+                DbInitialize.SeedData(siteSettings!);
+            });
+        }
     }
 
     private static IServiceCollection AddDataBase(this IServiceCollection services,string connectionString)

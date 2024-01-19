@@ -19,6 +19,7 @@ builder.Services.RegisterSwagger();
 #endregion Register Services
 
 var app = builder.Build();
+app.Services.InitializeDb(builder.Configuration);
 
 #region Pipeline
 

@@ -5,6 +5,8 @@ namespace Restaurant.Application.Models;
 public class SiteSettings
 {
     public ConnectionStrings ConnectionStrings { get; set; } = null!;
+    public string UserDefaultAvatar { get; set; } = null!;
+    public AdminUserSeed AdminUserSeed { get; set; } = null!;
 
     public bool EnableEmailConfirmation { get; set; }
     public TimeSpan EmailConfirmationTokenProviderLifespan { get; set; }
@@ -26,4 +28,11 @@ public class CookieOptions
     public string LoginPath { get; set; }
     public string LogoutPath { get; set; }
     public bool SlidingExpiration { get; set; }
+}
+
+public class AdminUserSeed
+{
+    public string UserName { get; set; } = null!;
+    public string Password { get; set; } = null!;
+    public string Email { get; set; } = null!;
 }
