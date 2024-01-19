@@ -196,4 +196,9 @@ public interface IApplicationUserManager : IDisposable
     IQueryable<User> Users { get; }
 
     #endregion BaseClass
+
+    #region Custom
+
+    Task<User> FindByPhoneNumber(string phoneNumber);
+    #endregion
 }

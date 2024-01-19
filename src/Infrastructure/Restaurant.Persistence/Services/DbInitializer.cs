@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Restaurant.Application.Contracts;
 using Restaurant.Application.Contracts.Identity;
+using Restaurant.Application.Contracts.Persistence;
 using Restaurant.Application.Models;
 using Restaurant.Domain.Constants;
 using Restaurant.Persistence.Contexts;

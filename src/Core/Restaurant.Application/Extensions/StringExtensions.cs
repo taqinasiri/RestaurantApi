@@ -5,6 +5,12 @@ public static class StringExtensions
     public static bool HasValue(this string value,bool ignoreWhiteSpace = true)
         => ignoreWhiteSpace ? !string.IsNullOrWhiteSpace(value) : !string.IsNullOrEmpty(value);
 
+    public static string NullIfEmpty(this string str) => str?.Length == 0 ? null : str;
+
+    public static bool IsEmail(this string input) => input.Contains('@');
+
+    #region Convents
+
     public static int ToInt(this string value)
         => Convert.ToInt32(value);
 
@@ -29,6 +35,10 @@ public static class StringExtensions
     public static string Fa2En(this string str)
         => str.Replace("۰","0").Replace("۱","1").Replace("۲","2").Replace("۳","3").Replace("۴","4").Replace("۵","5").Replace("۶","6").Replace("۷","7").Replace("۸","8").Replace("۹","9").Replace("٠","0").Replace("١","1").Replace("٢","2").Replace("٣","3").Replace("٤","4").Replace("٥","5").Replace("٦","6").Replace("٧","7").Replace("٨","8").Replace("٩","9");
 
+    #endregion Convents
+
+    #region Cleaners
+
     public static string FixPersianChars(this string str)
         => str.Replace("ﮎ","ک")
             .Replace("ﮏ","ک")
@@ -43,6 +53,5 @@ public static class StringExtensions
     public static string CleanString(this string str)
         => str.Trim().FixPersianChars().Fa2En().NullIfEmpty();
 
-    public static string NullIfEmpty(this string str)
-        => str?.Length == 0 ? null : str;
+    #endregion Cleaners
 }
