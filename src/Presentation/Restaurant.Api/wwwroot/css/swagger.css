@@ -1,0 +1,123 @@
+﻿:root {
+    --back: #191919;
+    --sections: #323130;
+    --secondary-back: #0d101b88;
+    --text: #fff;
+    --primary: #69bbde;
+    --dark-shadow: #11142288;
+    --ligth-shadow: #084e8888;
+    --prop-type: #61afed;
+    --primitive: #b03f34;
+}
+
+* {
+    color: var(--text) !important;
+}
+
+body {
+    background-color: var(--back);
+}
+
+.topbar {
+    box-shadow: 0 0 5px var(--ligth-shadow);
+}
+
+.info {
+    box-shadow: 0 0 5px 2px var(--ligth-shadow);
+    padding: 10px 30px !important;
+    border-radius: 5px;
+}
+
+.version-stamp {
+    background-color: var(--primary) !important;
+}
+
+.scheme-container {
+    background-color: var(--back) !important;
+    box-shadow: none !important;
+}
+
+input,
+textarea {
+    background-color: var(--back) !important;
+    border: 1px solid var(--text) !important;
+}
+
+select {
+    background-color: var(--back) !important;
+    border: 2px solid var(--primary) !important;
+}
+
+    select > option {
+        background-color: var(--back) !important;
+    }
+
+.btn {
+    border: 2px solid var(--primary) !important;
+}
+
+code {
+    color: var(--primary) !important;
+    background-color: var(--secondary-back);
+    padding: 3px;
+    border-radius: 4px;
+}
+
+pre > code {
+    color: var(--text) !important;
+    background-color: transparent;
+}
+
+.opblock-tag {
+    border: none !important;
+}
+
+.opblock-section-header {
+    background-color: var(--back) !important;
+    box-shadow: 0 5px 5px var(--dark-shadow) !important;
+}
+
+.opblock-tag-section {
+    margin-top: 10px;
+    border-radius: 4px;
+    padding: 5px 10px;
+    background-color: var(--sections);
+}
+
+.modal-ux-content {
+    background-color: var(--back) !important;
+}
+
+.modal-ux-header {
+    background-color: var(--sections) !important;
+}
+
+section.models {
+    background-color: var(--sections);
+}
+
+.model-container {
+    border: none;
+    box-shadow: 0 0px 5px 3px var(--dark-shadow);
+}
+
+.property-row {
+    background-color: var(--secondary-back);
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 4px;
+}
+
+.response {
+    border-top: 1px solid var(--text);
+}
+
+span.prop-type, div.parameter__type {
+    color: var(--prop-type) !important;
+}
+
+span.primitive {
+    color: var(--primitive) !important;
+}
