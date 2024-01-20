@@ -21,6 +21,7 @@ internal class LoginRegisterCommandHandler(IApplicationUserManager userManager
     {
         string phoneNumberOrEmail = request.PhoneNumberOrEmail;
         bool isEmail = phoneNumberOrEmail.IsEmail();
+        DateTime sendCodeLastTime = DateTime.Now;
 
         var user = isEmail ?
             await _userManager.FindByEmailAsync(phoneNumberOrEmail) :
@@ -28,6 +29,11 @@ internal class LoginRegisterCommandHandler(IApplicationUserManager userManager
 
         if(user is not null)
         {
+            if(user.SendCodeLastTime > sendCodeLastTime.AddSeconds(-_siteSettings.WaitForSendCodeSeconds))
+            {
+                return new(phoneNumberOrEmail,_siteSettings.WaitForSendCodeSeconds,user.SendCodeLastTime);
+            }
+            await _userManager.UpdateSendCodeLastTime(user,sendCodeLastTime,true);
             if(isEmail)
             {
                 var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user,user.Email!);
@@ -40,7 +46,7 @@ internal class LoginRegisterCommandHandler(IApplicationUserManager userManager
                 //TODO : Send SMS
             }
 
-            return new(phoneNumberOrEmail);
+            return new(phoneNumberOrEmail,_siteSettings.WaitForSendCodeSeconds,user.SendCodeLastTime);
         }
 
         if(isEmail)
@@ -49,7 +55,8 @@ internal class LoginRegisterCommandHandler(IApplicationUserManager userManager
             {
                 UserName = phoneNumberOrEmail.Split('@')[0],
                 Email = phoneNumberOrEmail,
-                Avatar = _siteSettings.UserDefaultAvatar
+                Avatar = _siteSettings.UserDefaultAvatar,
+                SendCodeLastTime = sendCodeLastTime
             };
             var result = await _userManager.CreateAsync(user);
             if(!result.Succeeded)
@@ -68,7 +75,8 @@ internal class LoginRegisterCommandHandler(IApplicationUserManager userManager
                 UserName = phoneNumberOrEmail,
                 PhoneNumber = phoneNumberOrEmail,
                 Avatar = _siteSettings.UserDefaultAvatar,
-                Email = $"{StringHelper.GenerateGuid()}@test.com"
+                Email = $"{StringHelper.GenerateGuid()}@test.com",
+                SendCodeLastTime = sendCodeLastTime
             };
             var result = await _userManager.CreateAsync(user);
             if(!result.Succeeded)
@@ -79,6 +87,6 @@ internal class LoginRegisterCommandHandler(IApplicationUserManager userManager
             //TODO : Send SMS
         }
 
-        return new(phoneNumberOrEmail);
+        return new(phoneNumberOrEmail,_siteSettings.WaitForSendCodeSeconds,user.SendCodeLastTime);
     }
 }

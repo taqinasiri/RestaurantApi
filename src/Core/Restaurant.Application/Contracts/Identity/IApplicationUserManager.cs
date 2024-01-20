@@ -200,5 +200,8 @@ public interface IApplicationUserManager : IDisposable
     #region Custom
 
     Task<User> FindByPhoneNumber(string phoneNumber);
-    #endregion
+
+    Task UpdateSendCodeLastTime(User user,DateTime dateTime,bool isSave);
+
+    #endregion Custom
 }

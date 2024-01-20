@@ -6,6 +6,7 @@ public class SiteSettings
 
     public string UserDefaultAvatar { get; set; } = null!;
     public AdminUserSeed AdminUserSeed { get; set; } = null!;
+    public int WaitForSendCodeSeconds { get; set; }
 
     public EmailConfigs EmailConfigs { get; set; } = null!;
 

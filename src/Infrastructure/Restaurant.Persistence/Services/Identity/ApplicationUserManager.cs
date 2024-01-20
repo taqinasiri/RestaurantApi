@@ -19,7 +19,15 @@ public class ApplicationUserManager(
     IApplicationUserManager
 {
     private readonly DbSet<User> _users = context.Set<User>();
+    private readonly ApplicationDbContext _context = context;
 
     public async Task<User> FindByPhoneNumber(string phoneNumber)
         => await _users.SingleOrDefaultAsync(u => u.PhoneNumber == phoneNumber);
+
+    public async Task UpdateSendCodeLastTime(User user,DateTime dateTime,bool isSave)
+    {
+        user.SendCodeLastTime = dateTime;
+        if(isSave)
+            await _context.SaveChangesAsync();
+    }
 }
