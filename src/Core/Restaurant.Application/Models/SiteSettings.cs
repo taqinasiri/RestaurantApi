@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace Restaurant.Application.Models;
+﻿namespace Restaurant.Application.Models;
 
 public class SiteSettings
 {
     public ConnectionStrings ConnectionStrings { get; set; } = null!;
+
     public string UserDefaultAvatar { get; set; } = null!;
     public AdminUserSeed AdminUserSeed { get; set; } = null!;
+
+    public EmailConfigs EmailConfigs { get; set; } = null!;
 
     public bool EnableEmailConfirmation { get; set; }
     public TimeSpan EmailConfirmationTokenProviderLifespan { get; set; }
@@ -35,4 +36,15 @@ public class AdminUserSeed
     public string UserName { get; set; } = null!;
     public string Password { get; set; } = null!;
     public string Email { get; set; } = null!;
+}
+
+public class EmailConfigs
+{
+    public string SiteTitle { get; set; } = null!;
+    public string Host { get; set; } = null!;
+    public int Port { get; set; }
+    public bool UseSSL { get; set; }
+    public string UserName { get; set; } = null!;
+    public string Password { get; set; } = null!;
+    public string LocalWritePath { get; set; } = null!;
 }

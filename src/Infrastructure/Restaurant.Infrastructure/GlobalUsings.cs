@@ -1,1 +1,1 @@
-﻿
+﻿global using Restaurant.Application.Contracts.Infrastructure;

@@ -38,11 +38,11 @@ public class ExceptionHandlingMiddleware(RequestDelegate next)
             var result = new ApiResult(false,System.Net.HttpStatusCode.NotFound,exception.Message);
             await context.Response.WriteAsJsonAsync(result);
         }
-        catch
-        {
-            context.Response.StatusCode = StatusCodes.Status200OK;
-            var result = new ApiResult(false,System.Net.HttpStatusCode.InternalServerError);
-            await context.Response.WriteAsJsonAsync(result);
-        }
+        //catch
+        //{
+        //    context.Response.StatusCode = StatusCodes.Status200OK;
+        //    var result = new ApiResult(false,System.Net.HttpStatusCode.InternalServerError);
+        //    await context.Response.WriteAsJsonAsync(result);
+        //}
     }
 }

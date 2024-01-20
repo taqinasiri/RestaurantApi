@@ -8,4 +8,9 @@ public static class Messages
         public const string MaxLength = "{PropertyName} نمیتواند بیشتر از {MaxLength} کاراکتر باشد.";
         public const string RegularExpression = "فرمت عبارت وارد شده اشتباه است.";
     }
+
+    public static class Subjects
+    {
+        public const string LoginCodeMailSubject = "کد ورود به حساب کاربری";
+    }
 }

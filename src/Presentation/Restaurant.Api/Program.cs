@@ -16,7 +16,7 @@ builder.Services.AddControllers(configure =>
 });
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddPersistenceServices(builder.Configuration);
-builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddInfrastructureServices(builder.Configuration,builder.Environment);
 
 // Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();

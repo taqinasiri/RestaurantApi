@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using Restaurant.Application.Contracts.Identity;
+using Restaurant.Application.Contracts.Infrastructure;
 using Restaurant.Application.Exceptions;
 using Restaurant.Application.Extensions;
 using Restaurant.Application.Features.User.Requests.Commands;
@@ -8,10 +9,13 @@ using Restaurant.Application.Models;
 
 namespace Restaurant.Application.Features.User.Handlers.Commands;
 
-internal class LoginRegisterCommandHandler(IApplicationUserManager userManager,IOptionsSnapshot<SiteSettings> options) : IRequestHandler<LoginRegisterCommand,LoginRegisterResponse>
+internal class LoginRegisterCommandHandler(IApplicationUserManager userManager
+    ,IOptionsSnapshot<SiteSettings> options,
+    IEmailSenderService emailSender) : IRequestHandler<LoginRegisterCommand,LoginRegisterResponse>
 {
     private readonly IApplicationUserManager _userManager = userManager;
     private readonly SiteSettings _siteSettings = options.Value;
+    private readonly IEmailSenderService _emailSender = emailSender;
 
     public async Task<LoginRegisterResponse> Handle(LoginRegisterCommand request,CancellationToken cancellationToken)
     {
@@ -27,7 +31,8 @@ internal class LoginRegisterCommandHandler(IApplicationUserManager userManager,I
             if(isEmail)
             {
                 var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user,user.Email!);
-                //TODO : Send Email
+                var body = EmailTemplates.LoginCodeEmail(code,user.Email!);
+                await _emailSender.SendEmailAsync(user.Email!,Messages.Subjects.LoginCodeMailSubject,body);
             }
             else
             {
@@ -53,7 +58,8 @@ internal class LoginRegisterCommandHandler(IApplicationUserManager userManager,I
             }
 
             var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user,user.Email);
-            //TODO : Send Email
+            var body = EmailTemplates.LoginCodeEmail(code,user.Email!);
+            await _emailSender.SendEmailAsync(user.Email!,Messages.Subjects.LoginCodeMailSubject,body);
         }
         else
         {
