@@ -15,6 +15,8 @@ public class SiteSettings
     public PasswordOptions PasswordOptions { get; set; } = null!;
     public LockoutOptions LockoutOptions { get; set; } = null!;
     public CookieOptions CookieOptions { get; set; } = null!;
+
+    public JwtConfigs JwtConfigs { get; set; } = null!;
 }
 
 public class ConnectionStrings
@@ -48,4 +50,13 @@ public class EmailConfigs
     public string UserName { get; set; } = null!;
     public string Password { get; set; } = null!;
     public string LocalWritePath { get; set; } = null!;
+}
+
+public class JwtConfigs
+{
+    public string SecretKey { get; set; }
+    public string Issuer { get; set; }
+    public string Audience { get; set; }
+    public int NotBeforeMinutes { get; set; }
+    public int ExpirationMinutes { get; set; }
 }

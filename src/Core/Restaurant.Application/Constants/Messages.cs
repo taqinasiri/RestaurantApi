@@ -13,4 +13,9 @@ public static class Messages
     {
         public const string LoginCodeMailSubject = "کد ورود به حساب کاربری";
     }
+
+    public static class Errors
+    {
+        public const string CodeNotValid = "کد درست نیست";
+    }
 }

@@ -66,6 +66,11 @@ public static class PersistenceServicesRegistration
         services.AddScoped<IApplicationRoleManager,ApplicationRoleManager>();
         services.AddScoped<RoleManager<Role>,ApplicationRoleManager>();
 
+        services.AddScoped<IApplicationSignInManager,ApplicationSignInManager>();
+        services.AddScoped<SignInManager<User>,ApplicationSignInManager>();
+
+        services.AddScoped<IJwtService,JwtService>();
+
         return services;
     }
 
