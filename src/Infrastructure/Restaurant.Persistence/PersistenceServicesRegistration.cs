@@ -6,6 +6,7 @@ using Restaurant.Application.Contracts.Persistence;
 using Restaurant.Application.Models;
 using Restaurant.Persistence.Contexts;
 using Restaurant.Persistence.Interceptors;
+using Restaurant.Persistence.Repositories;
 using Restaurant.Persistence.Services;
 using Restaurant.Persistence.Services.Identity;
 using System.Security.Principal;
@@ -23,11 +24,20 @@ public static class PersistenceServicesRegistration
         services.AddDataBase(siteSettings.ConnectionStrings.ApplicationDbContextConnection);
         services.AddScoped<IDbInitializer,DbInitializer>();
 
+        services.AddRepositories();
+
         services.AddIdentityServices();
         services.AddIdentityOptions(siteSettings);
 
         services.AddSingleton<IHttpContextAccessor,HttpContextAccessor>();
         services.AddSingleton<IPrincipal>(provider => provider.GetRequiredService<IHttpContextAccessor>()?.HttpContext?.User ?? ClaimsPrincipal.Current!);
+
+        return services;
+    }
+
+    public static IServiceCollection AddRepositories(this IServiceCollection services)
+    {
+        services.AddScoped<ICategoryRepository,CategoryRepository>();
         return services;
     }
 

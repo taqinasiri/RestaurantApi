@@ -8,5 +8,6 @@ public class ApplicationDbContext(DbContextOptions options) : IdentityDbContext<
         builder.RegisterAllEntities(typeof(EntityBase));
         builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
         builder.AddAuditableShadowProperties();
+        builder.AddIsDeleteQueryFilter<EntityBase>();
     }
 }
