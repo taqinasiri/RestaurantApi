@@ -8,6 +8,6 @@ public class LoginRegisterCommandValidator : AbstractValidator<LoginRegisterComm
            .NotEmpty().WithMessage(Messages.Validation.Required)
            .NotNull().WithMessage(Messages.Validation.Required)
            .MaximumLength(200).WithMessage(Messages.Validation.MaxLength)
-           .Matches(@"^([\w-\.]+@([\w-]+\.)+[\w-]{2,})|09[\d]{9}$").WithMessage(Messages.Validation.RegularExpression);
+           .Matches(RegularExpressions.PhoneNumberOrEmail).WithMessage(Messages.Validation.RegularExpression);
     }
 }
