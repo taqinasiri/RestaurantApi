@@ -77,6 +77,9 @@ public static class ApplicationServicesRegistration
                     var userId = claimsIdentity.GetUserId();
                     var user = await userManager.FindByIdAsync(userId!);
 
+                    if(!user.IsActive)
+                        context.Fail("User is DeAtvice");
+
                     var validatedUser = await signInManager.ValidateSecurityStampAsync(context.Principal!);
                     if(validatedUser is null)
                         context.Fail("Token security stamp is not valid.");
