@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Restaurant.Application.Models;
+using Restaurant.Infrastructure.File;
 using Restaurant.Infrastructure.Mail;
 
 namespace Restaurant.Infrastructure;
@@ -20,6 +21,7 @@ public static class InfrastructureServicesRegistration
         {
             services.AddScoped<IEmailSenderService,EmailSenderService>();
         }
+        services.AddScoped<IFileUploadService,FileUploadService>();
         return services;
     }
 }

@@ -9,6 +9,7 @@ public class SiteSettings
     public int WaitForSendCodeSeconds { get; set; }
 
     public EmailConfigs EmailConfigs { get; set; } = null!;
+    public FileFolders FileFolders { get; set; } = null!;
 
     public bool EnableEmailConfirmation { get; set; }
     public TimeSpan EmailConfirmationTokenProviderLifespan { get; set; }
@@ -59,4 +60,9 @@ public class JwtConfigs
     public string Audience { get; set; }
     public int NotBeforeMinutes { get; set; }
     public int ExpirationMinutes { get; set; }
+}
+
+public class FileFolders
+{
+    public string CategoryPictures { get; set; } = null!;
 }
