@@ -22,8 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Category\Handlers\Queries\" />
-    <Folder Include="Features\Category\Requests\Queries\" />
     <Folder Include="Features\User\Handlers\Queries\" />
     <Folder Include="Features\User\Requests\Queries\" />
   </ItemGroup>

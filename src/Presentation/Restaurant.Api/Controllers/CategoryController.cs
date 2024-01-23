@@ -1,4 +1,5 @@
 ﻿using Restaurant.Application.Features.Category.Requests.Commands;
+using Restaurant.Application.Features.Category.Requests.Queries;
 
 namespace Restaurant.Api.Controllers;
 
@@ -9,6 +10,26 @@ public class CategoryController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator _mediator = mediator;
 
+    /// <summary>
+    /// Get a Category Details
+    /// </summary>
+    /// <remarks>
+    /// - 404 : Category not found
+    /// </remarks>
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult> Get(int id)
+    {
+        var response = await _mediator.Send(new GetCategoryDetailsQuery(id));
+        return Ok(response);
+    }
+
+    /// <summary>
+    /// Create a new category
+    /// </summary>
+    /// <remarks>
+    /// - 400 : Title or slug exists | File upload error
+    /// - 404 : Parent not found
+    /// </remarks>
     [HttpPost]
     public async Task<ActionResult> Create(CreateCategoryCommand command)
     {
