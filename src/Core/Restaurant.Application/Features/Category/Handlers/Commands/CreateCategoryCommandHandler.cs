@@ -33,12 +33,15 @@ public class CreateCategoryCommandHandler(
             caregory.ParentId = request.ParentId.Value;
         }
 
-        var fileUploadResult = await _fileUploadService.UploadBase64(request.PictureBase64,_categoryPicturesFolderPath.CombineWithCurrentDirectory());
-        if(!fileUploadResult.IsSuccedded)
+        if(!request.PictureBase64.IsNull())
         {
-            throw new BadRequestException([Messages.Errors.FileUploadFiled]);
+            var fileUploadResult = await _fileUploadService.UploadBase64(request.PictureBase64,_categoryPicturesFolderPath.CombineWithCurrentDirectory());
+            if(!fileUploadResult.IsSuccedded)
+            {
+                throw new BadRequestException([Messages.Errors.FileUploadFiled]);
+            }
+            caregory.Picture = fileUploadResult.fileName;
         }
-        caregory.Picture = fileUploadResult.fileName;
 
         await _categoryRepository.CreateAsync(caregory);
     }

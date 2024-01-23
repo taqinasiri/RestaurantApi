@@ -12,6 +12,6 @@ public class FileUploadService : IFileUploadService
         fileName ??= StringHelper.GenerateGuid();
         path.CreateDirectoryIfNotExists();
         await base64.SaveBase64FileAsync(fileName,fileExtension,path);
-        return new(true,fileName);
+        return new(true,$"{fileName}.{fileExtension}");
     }
 }

@@ -9,6 +9,9 @@ public static class StringExtensions
 
     public static bool IsEmail(this string input) => input.Contains('@');
 
+    public static bool IsNull(this string str)
+        => str is null || string.IsNullOrWhiteSpace(str);
+
     #region Convents
 
     public static int ToInt(this string value)
