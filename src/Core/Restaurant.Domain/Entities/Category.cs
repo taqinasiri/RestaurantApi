@@ -24,6 +24,8 @@ public class Category : EntityBase
     #region Relations
 
     [ForeignKey(nameof(ParentId))]
+    public Category? Parent { get; set; }
+
     public ICollection<Category>? Children { get; set; }
 
     #endregion Relations

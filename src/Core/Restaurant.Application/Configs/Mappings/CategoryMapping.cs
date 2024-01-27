@@ -10,5 +10,7 @@ public class CategoryMapping : Profile
         CreateMap<CreateCategoryCommand,Category>()
             .ForMember(dest => dest.ParentId,config => config.Ignore());
         CreateMap<Category,GetCategoryDetailsResponse>();
+        CreateMap<Category,CategoryForFilterList>()
+            .ForMember(dest => dest.ParentTitle,options => options.MapFrom(src => src.Parent.Title));
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Restaurant.Application.Extensions;
+﻿using Org.BouncyCastle.Tls;
+
+namespace Restaurant.Application.Extensions;
 
 public static class StringExtensions
 {
@@ -11,6 +13,8 @@ public static class StringExtensions
 
     public static bool IsNull(this string str)
         => str is null || string.IsNullOrWhiteSpace(str);
+
+    public static bool IsNotNull(this string str) => !str.IsNull();
 
     #region Convents
 

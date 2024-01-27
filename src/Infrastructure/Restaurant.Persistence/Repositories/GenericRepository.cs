@@ -15,6 +15,8 @@ public class GenericRepository<T>(ApplicationDbContext context) : IGenericReposi
         await _entities.IgnoreQueryFilters().ToListAsync() :
         await _entities.ToListAsync();
 
+    public async ValueTask<int> GetEntitiesCountAsync() => await _entities.CountAsync();
+
     public async Task CreateAsync(T entity,bool isSave = true)
     {
         await _entities.AddAsync(entity);

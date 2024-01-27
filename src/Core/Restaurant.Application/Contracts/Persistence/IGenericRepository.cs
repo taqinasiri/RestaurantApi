@@ -8,6 +8,8 @@ public interface IGenericRepository<T> where T : EntityBase
 
     ValueTask<IReadOnlyList<T>> GetAllAsync(bool isGetDeleted = false);
 
+    ValueTask<int> GetEntitiesCountAsync();
+
     ValueTask<bool> IsExists(long id);
 
     Task UpdateAsync(T entity,bool isSave = true);
