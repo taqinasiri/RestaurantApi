@@ -11,6 +11,8 @@ public class CategoryController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator _mediator = mediator;
 
+    #region GET
+
     /// <summary>
     ///  Get All Categories by filter and ordering
     /// </summary>
@@ -50,6 +52,10 @@ public class CategoryController(IMediator mediator) : ControllerBase
         return Ok(response);
     }
 
+    #endregion GET
+
+    #region POST
+
     /// <summary>
     /// Create a new category
     /// </summary>
@@ -63,4 +69,25 @@ public class CategoryController(IMediator mediator) : ControllerBase
         await _mediator.Send(command);
         return Ok();
     }
+
+    #endregion POST
+
+    #region PUT
+
+    /// <summary>
+    /// Update a category
+    /// </summary>
+    /// <remarks>
+    /// - 400 : Title or slug exists | File upload error
+    /// - 404 : Category not found | Parent not found
+    /// </remarks>
+    [HttpPut("{id:int}")]
+    public async Task<ActionResult> Update(UpdateCategoryCommand command,int id)
+    {
+        command.Id = id;
+        await _mediator.Send(command);
+        return Ok();
+    }
+
+    #endregion PUT
 }
