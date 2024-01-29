@@ -90,4 +90,23 @@ public class CategoryController(IMediator mediator) : ControllerBase
     }
 
     #endregion PUT
+
+    #region DELETE
+
+    /// <summary>
+    /// Delete a Category
+    /// </summary>
+    /// <remarks>
+    /// - 404 : Category not found
+    /// </remarks>
+    [HttpDelete("{id:int}")]
+    public async Task<ActionResult> Delete(int id)
+    {
+        var command = new DeleteCategoryCommand();
+        command.Id = id;
+        await _mediator.Send(command);
+        return Ok();
+    }
+
+    #endregion DELETE
 }
