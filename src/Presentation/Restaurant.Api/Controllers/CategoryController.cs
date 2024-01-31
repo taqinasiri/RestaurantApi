@@ -39,6 +39,17 @@ public class CategoryController(IMediator mediator) : ControllerBase
     }
 
     /// <summary>
+    /// Get categories tree structure
+    /// </summary>
+    [HttpGet("Tree/{depth:int}")]
+    [ProducesResponseOkApiResult<GetCategoriesTreeResponse>]
+    public async Task<ActionResult> Get(byte depth = 2)
+    {
+        var response = await _mediator.Send(new GetCategoriesTreeQuery() { Depth = depth });
+        return Ok(response);
+    }
+
+    /// <summary>
     /// Get a Category Details
     /// </summary>
     /// <remarks>
