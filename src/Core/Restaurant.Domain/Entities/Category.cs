@@ -27,6 +27,7 @@ public class Category : EntityBase
     public Category? Parent { get; set; }
 
     public ICollection<Category>? Children { get; set; }
+    public ICollection<CategoryToProduct>? Products { get; set; }
 
     #endregion Relations
 }
