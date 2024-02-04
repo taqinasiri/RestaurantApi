@@ -72,7 +72,7 @@ public class CategoryController(IMediator mediator) : ControllerBase
     /// </summary>
     /// <remarks>
     /// - 400 : Title or slug exists | File upload error
-    /// - 404 : Parent not found
+    /// - 404 : Category not found
     /// </remarks>
     [HttpPost]
     public async Task<ActionResult> Create(CreateCategoryCommand command)

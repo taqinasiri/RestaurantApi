@@ -12,6 +12,8 @@ public interface IGenericRepository<T> where T : EntityBase
 
     ValueTask<bool> IsExists(long id);
 
+    ValueTask<bool> IsExistsRange(List<long> ids);
+
     Task UpdateAsync(T entity,bool isSave = true);
 
     Task DeleteAsync(T entity,bool isSave = true,bool isSoft = true);

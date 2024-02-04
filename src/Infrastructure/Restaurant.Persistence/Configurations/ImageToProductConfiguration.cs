@@ -1,6 +1,4 @@
-﻿using Restaurant.Domain.Entities;
-
-namespace Restaurant.Persistence.Configurations;
+﻿namespace Restaurant.Persistence.Configurations;
 
 public class ImageToProductConfiguration : IEntityTypeConfiguration<ImageToProduct>
 {
@@ -8,7 +6,7 @@ public class ImageToProductConfiguration : IEntityTypeConfiguration<ImageToProdu
     {
         builder.HasOne(itp => itp.Product)
             .WithMany(p => p.Images)
-            .HasForeignKey(itp => itp.ImageId);
+            .HasForeignKey(itp => itp.ProductId);
 
         builder.HasOne(itp => itp.Image)
             .WithMany(p => p.Products)

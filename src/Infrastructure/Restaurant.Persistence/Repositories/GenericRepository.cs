@@ -51,4 +51,7 @@ public class GenericRepository<T>(ApplicationDbContext context) : IGenericReposi
 
     public async ValueTask<bool> IsExists(long id)
         => await _entities.AnyAsync(e => e.Id == id);
+
+    public async ValueTask<bool> IsExistsRange(List<long> ids)
+        => await _entities.Select(e => e.Id).Intersect(ids).CountAsync() == ids.Count;
 }

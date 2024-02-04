@@ -8,6 +8,7 @@ global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using Restaurant.Application.Contracts.Persistence;
 global using Restaurant.Application.Extensions;
 global using Restaurant.Domain.Common;
+global using Restaurant.Domain.Entities;
 global using Restaurant.Domain.Entities.Identity;
 global using Restaurant.Persistence.Contexts;
 global using Restaurant.Persistence.Extensions;

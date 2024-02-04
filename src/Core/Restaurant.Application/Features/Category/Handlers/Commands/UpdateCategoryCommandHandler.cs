@@ -38,7 +38,7 @@ public class UpdateCategoryCommandHandler(
             {
                 throw new BadRequestException([Messages.Errors.FileUploadFiled]);
             }
-            caregory.Picture = fileUploadResult.fileName;
+            caregory.Picture = fileUploadResult.FileName;
         }
 
         caregory.Title = request.Title;

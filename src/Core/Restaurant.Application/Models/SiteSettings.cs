@@ -65,4 +65,5 @@ public class JwtConfigs
 public class FileFolders
 {
     public string CategoryPictures { get; set; } = null!;
+    public string ProductPictures { get; set; } = null!;
 }
