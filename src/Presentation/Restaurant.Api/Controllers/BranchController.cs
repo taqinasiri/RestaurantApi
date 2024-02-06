@@ -70,4 +70,13 @@ public class BranchController(IMediator mediator) : ControllerBase
     }
 
     #endregion POST
+    #region PUT
+    [HttpPut("{id:long}")]
+    public async Task<ActionResult> Update(UpdateBranchCommand command,long id)
+    {
+        command.Id = id;
+        await _mediator.Send(command);
+        return Ok();
+    }
+    #endregion
 }

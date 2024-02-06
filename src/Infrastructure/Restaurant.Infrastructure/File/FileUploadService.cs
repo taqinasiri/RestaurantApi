@@ -15,12 +15,15 @@ public class FileUploadService : IFileUploadService
         return new(true,$"{fileName}.{fileExtension}",fileExtension,(int)base64.GetBase64FileSize());
     }
 
+    public void DeleteFile(string path,string fileName)
+        => FileHelper.Delete(fileName,path);
+
     public async ValueTask<FileUploadResult> ReUploadBase64(string base64,string path,string oldFileName,string? newFileName = null)
     {
         var result = await UploadBase64(base64,path,newFileName);
 
         if(oldFileName is not null)
-            FileHelper.Delete(oldFileName,path);
+            DeleteFile(path,oldFileName);
 
         return result;
     }

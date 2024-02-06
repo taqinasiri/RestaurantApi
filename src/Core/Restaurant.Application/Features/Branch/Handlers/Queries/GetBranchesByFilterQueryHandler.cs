@@ -1,5 +1,4 @@
 ﻿using Restaurant.Application.Features.Branch.Requests.Queries;
-using Restaurant.Application.Features.Category.Requests.Queries;
 
 namespace Restaurant.Application.Features.Branch.Handlers.Queries;
 
