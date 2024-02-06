@@ -10,5 +10,6 @@ public class BranchMapping : Profile
         CreateMap<CreateBranchCommand,Branch>();
         CreateMap<Branch,GetBranchDetailsResponse>()
             .ForMember(dest => dest.Images,options => options.MapFrom(src => src.Images.Select(i => i.Image.Name)));
+        CreateMap<Branch,BranchForFilterList>();
     }
 }
