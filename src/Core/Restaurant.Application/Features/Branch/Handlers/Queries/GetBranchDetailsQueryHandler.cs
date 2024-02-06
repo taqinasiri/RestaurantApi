@@ -8,7 +8,7 @@ public class GetBranchDetailsQueryHandler(IBranchRepository branchRepository) : 
 
     public async Task<GetBranchDetailsResponse> Handle(GetBranchDetailsQuery request,CancellationToken cancellationToken)
     {
-        var result = await _branchRepository.GetDetailsById(request.Id) ?? throw new NotFoundException("Category");
+        var result = await _branchRepository.GetDetailsById(request.Id) ?? throw new NotFoundException("Branch");
         return result;
     }
 }

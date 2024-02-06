@@ -42,10 +42,11 @@ public class BranchController(IMediator mediator) : ControllerBase
     /// Get a branch by id
     /// </summary>
     /// <remarks>
-    /// 404 : Branch not found
+    /// - 404 : Branch not found
     /// </remarks>
     [HttpGet("{id:int}")]
-    public async Task<ActionResult> Create(int id)
+    [ProducesResponseOkApiResult<GetBranchDetailsResponse>]
+    public async Task<ActionResult> Get(int id)
     {
         var result = await _mediator.Send(new GetBranchDetailsQuery(id));
         return Ok(result);
@@ -70,7 +71,16 @@ public class BranchController(IMediator mediator) : ControllerBase
     }
 
     #endregion POST
+
     #region PUT
+
+    /// <summary>
+    /// Update a branch
+    /// </summary>
+    /// <remarks>
+    /// - 400 : File upload error
+    /// - 404 : Branch not found
+    /// </remarks>
     [HttpPut("{id:long}")]
     public async Task<ActionResult> Update(UpdateBranchCommand command,long id)
     {
@@ -78,5 +88,23 @@ public class BranchController(IMediator mediator) : ControllerBase
         await _mediator.Send(command);
         return Ok();
     }
-    #endregion
+
+    #endregion PUT
+
+    #region DELETE
+
+    /// <summary>
+    /// Delete a branch
+    /// </summary>
+    /// <remarks>
+    /// - 404 : Branch not found
+    /// </remarks>
+    [HttpDelete("{id:long}")]
+    public async Task<ActionResult> Delete(long id)
+    {
+        await _mediator.Send(new DeleteBranchCommand(id));
+        return Ok();
+    }
+
+    #endregion DELETE
 }
