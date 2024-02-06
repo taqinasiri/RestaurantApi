@@ -1,6 +1,8 @@
 ﻿namespace Restaurant.Domain.Entities;
 
 [Table("Branches")]
+[Index(nameof(Title),IsUnique = true)]
+[Index(nameof(Slug),IsUnique = true)]
 public class Branch : EntityBase
 {
     [Required]
