@@ -19,6 +19,7 @@ public class Image : EntityBase
     #region Relations
 
     public ICollection<ImageToProduct>? Products { get; set; }
+    public ICollection<ImageToBranch>? Branches { get; set; }
 
     #endregion Relations
 }

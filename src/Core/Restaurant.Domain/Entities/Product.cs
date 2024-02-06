@@ -21,6 +21,7 @@ public class Product : EntityBase
 
     public ICollection<CategoryToProduct>? Categories { get; set; }
     public ICollection<ImageToProduct>? Images { get; set; }
+    public ICollection<ProductToBranch>? Branches { get; set; }
 
     #endregion Relations
 }
