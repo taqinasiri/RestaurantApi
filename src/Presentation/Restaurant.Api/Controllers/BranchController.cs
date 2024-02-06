@@ -1,4 +1,5 @@
 ﻿using Restaurant.Application.Features.Branch.Requests.Commands;
+using Restaurant.Application.Features.Branch.Requests.Queries;
 
 namespace Restaurant.Api.Controllers;
 
@@ -8,6 +9,23 @@ namespace Restaurant.Api.Controllers;
 public class BranchController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator _mediator = mediator;
+
+    #region GET
+
+    /// <summary>
+    /// Get a branch by id
+    /// </summary>
+    /// <remarks>
+    /// 404 : Branch not found
+    /// </remarks>
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult> Create(int id)
+    {
+        var result = await _mediator.Send(new GetBranchDetailsQuery(id));
+        return Ok(result);
+    }
+
+    #endregion GET
 
     #region POST
 
