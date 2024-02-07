@@ -1,4 +1,5 @@
 ﻿using Restaurant.Application.Features.Product.Requests.Commands;
+using Restaurant.Application.Features.Product.Requests.Queries;
 
 namespace Restaurant.Api.Controllers;
 
@@ -8,6 +9,24 @@ namespace Restaurant.Api.Controllers;
 public class ProductController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator _mediator = mediator;
+
+    #region GET
+
+    /// <summary>
+    /// Get a product details
+    /// </summary>
+    /// <remarks>
+    /// 404 : product not found
+    /// </remarks>
+    [HttpGet("{id:int}")]
+    [ProducesResponseOkApiResult<GetProductDetailsResponse>]
+    public async Task<IActionResult> Get(int id)
+    {
+        var result = await _mediator.Send(new GetProductDetailsQuery(id));
+        return Ok(result);
+    }
+
+    #endregion GET
 
     #region POST
 
