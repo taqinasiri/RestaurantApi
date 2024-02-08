@@ -14,6 +14,17 @@ public class ProductController(IMediator mediator) : ControllerBase
 
     #region GET
 
+    /// <summary>
+    /// Get products by filter and ordering
+    /// </summary>
+    /// <param name="page">Page number</param>
+    /// <param name="take">items per page</param>
+    /// <param name="orderDescending">Default value : true</param>
+    /// <param name="orderBy">0 : Default | 1 : Title | 2 : Slug</param>
+    /// <param name="title">filter by title</param>
+    /// <param name="slug">filter by slug</param>
+    /// <param name="categories">filter by category ids | Template : 10,8,16</param>
+    /// <param name="branches">filter by branch ids | Template : 3,2</param>
     [HttpGet]
     [ProducesResponseOkApiResult<GetProductsByFilterResponse>]
     public async Task<IActionResult> Get(
@@ -76,7 +87,7 @@ public class ProductController(IMediator mediator) : ControllerBase
     /// <param name="command"></param>
     /// <remarks>
     /// - 400 : Title or slug exists | File upload error
-    /// - 404 : Parent not found
+    /// - 404 : Category not found
     /// </remarks>
     [HttpPost]
     public async Task<ActionResult> Create(CreateProductCommand command)
@@ -86,4 +97,23 @@ public class ProductController(IMediator mediator) : ControllerBase
     }
 
     #endregion POST
+
+    #region PUT
+
+    /// <summary>
+    /// Update a product
+    /// </summary>
+    /// <remarks>
+    /// 400 :  Title or slug exists | File upload error
+    /// 404 : Product not found | Category not foun
+    /// </remarks>
+    [HttpPut("{id:long}")]
+    public async Task<ActionResult> Update(UpdateProductCommand command,long id)
+    {
+        command.Id = id;
+        await _mediator.Send(command);
+        return Ok();
+    }
+
+    #endregion PUT
 }

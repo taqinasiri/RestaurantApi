@@ -53,4 +53,7 @@ public class ProductRepository(IMapper mapper,ApplicationDbContext context) : Ge
             ResultsCount = resultsCount,
         };
     }
+
+    public async Task<Product?> FindWithCategoriesByIdAsync(long id,bool isTracking = true)
+        => await _products.Include(p => p.Categories).ThenInclude(c => c.Category).SingleOrDefaultAsync(c => c.Id == id);
 }

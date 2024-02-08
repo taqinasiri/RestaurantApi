@@ -9,4 +9,6 @@ public interface IProductRepository : IGenericRepository<Product>
     ValueTask<bool> IsExistsByTitleOrSlug(string title,string slug);
 
     ValueTask<GetByFilterResult<ProductForFilterList>> GetByFilterAsync(ProductFilters filter,PagingQuery paging,OrderingModel<ProductOrdering> ordering);
+
+    Task<Product?> FindWithCategoriesByIdAsync(long id,bool isTracking = true);
 }
