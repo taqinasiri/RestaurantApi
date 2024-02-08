@@ -13,5 +13,7 @@ public class ProductMapping : Profile
             .ForMember(dest => dest.Images,options => options.MapFrom(src => src.Images.Select(i => i.Image.Name)))
             .ForMember(dest => dest.Categories,options => options.MapFrom(src => src.Categories.Select(c => new CategoryForProductDto(c.Category.Title,c.Category.Id))))
             .ForMember(dest => dest.Branches,options => options.MapFrom(src => src.Branches.Where(b => b.IsAvailable && b.IsActive).Select(b => new BranchForProductDto(b.Branch.Title,b.Price,b.Branch.Id))));
+        CreateMap<Product,ProductForFilterList>()
+            .ForMember(dest => dest.Categories,options => options.MapFrom(src => src.Categories.Select(c => new CategoryForProductDto(c.Category.Title,c.Category.Id))));
     }
 }

@@ -25,7 +25,7 @@ public class BranchController(IMediator mediator) : ControllerBase
     /// <param name="address">filter by address</param>
     /// <returns></returns>
     [HttpGet]
-    [ProducesResponseOkApiResult<GetCategoriesByFilterResponse>]
+    [ProducesResponseOkApiResult<GetBranchesByFilterResponse>]
     public async Task<ActionResult> Get(int page = 1,int take = 10,bool orderDescending = true,BranchOrdering? orderBy = null,string? title = null,string? slug = null,string? address = null)
     {
         GetBranchesByFilterQuery request = new()

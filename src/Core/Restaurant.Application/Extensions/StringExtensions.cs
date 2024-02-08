@@ -21,6 +21,9 @@ public static class StringExtensions
     public static int ToInt(this string value)
         => Convert.ToInt32(value);
 
+    public static long ToLong(this string value)
+        => Convert.ToInt64(value);
+
     public static decimal ToDecimal(this string value)
         => Convert.ToDecimal(value);
 

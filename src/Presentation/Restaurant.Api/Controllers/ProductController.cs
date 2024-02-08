@@ -1,5 +1,7 @@
-﻿using Restaurant.Application.Features.Product.Requests.Commands;
+﻿using Restaurant.Application.Extensions;
+using Restaurant.Application.Features.Product.Requests.Commands;
 using Restaurant.Application.Features.Product.Requests.Queries;
+using Uri = System.Web.Http;
 
 namespace Restaurant.Api.Controllers;
 
@@ -11,6 +13,44 @@ public class ProductController(IMediator mediator) : ControllerBase
     private readonly IMediator _mediator = mediator;
 
     #region GET
+
+    [HttpGet]
+    [ProducesResponseOkApiResult<GetProductsByFilterResponse>]
+    public async Task<IActionResult> Get(
+        int page = 1,int take = 10,
+        bool orderDescending = true,ProductOrdering? orderBy = null,
+        string? title = null,string? slug = null,
+        string? categories = null,
+        string? branches = null)
+    {
+        var categoryIds = new List<long>();
+        var branchIds = new List<long>();
+        try
+        {
+            categoryIds = categories.IsNotNull() ? categories.Split(',').Select(c => c.ToLong()).ToList() : null;
+            branchIds = branches.IsNotNull() ? branches.Split(',').Select(c => c.ToLong()).ToList() : null;
+        }
+        catch
+        {
+            categoryIds = null;
+            branchIds = null;
+        }
+
+        GetProductsByFilterQuery request = new()
+        {
+            Filters = new(title,slug)
+            {
+                CategoryIds = categoryIds,
+                AvailableInBranchIds = branchIds
+            },
+
+            Ordering = new(orderBy ?? ProductOrdering.Default,orderDescending),
+            Paging = new(page,take)
+        };
+
+        var result = await _mediator.Send(request);
+        return Ok(result);
+    }
 
     /// <summary>
     /// Get a product details

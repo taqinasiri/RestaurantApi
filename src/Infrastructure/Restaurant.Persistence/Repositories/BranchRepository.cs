@@ -18,33 +18,31 @@ public class BranchRepository(IMapper mapper,ApplicationDbContext context) : Gen
 
     public async ValueTask<List<BranchForFilterList>> GetByFilterAsync(BranchFilters filter,PagingQuery paging,OrderingModel<BranchOrdering> ordering)
     {
+        var query = _branches.AsQueryable();
+        if(filter.Slug!.IsNotNull())
+            query = query.Where(c => c.Slug.Contains(filter.Slug!));
+        if(filter.Title!.IsNotNull())
+            query = query.Where(c => c.Title.Contains(filter.Title!));
+        if(filter.Address!.IsNotNull())
+            query = query.Where(c => c.Address.Contains(filter.Address!));
+
+        switch(ordering.OrderBy)
         {
-            var query = _branches.AsQueryable();
-            if(filter.Slug!.IsNotNull())
-                query = query.Where(c => c.Slug.Contains(filter.Slug!));
-            if(filter.Title!.IsNotNull())
-                query = query.Where(c => c.Title.Contains(filter.Title!));
-            if(filter.Address!.IsNotNull())
-                query = query.Where(c => c.Address.Contains(filter.Address!));
+            case BranchOrdering.Default:
+                if(ordering.IsDescending)
+                    query = query.OrderByDescending(c => c.Id);
+                break;
 
-            switch(ordering.OrderBy)
-            {
-                case BranchOrdering.Default:
-                    if(ordering.IsDescending)
-                        query = query.OrderByDescending(c => c.Id);
-                    break;
+            case BranchOrdering.Title:
+                query = ordering.IsDescending ? query.OrderByDescending(c => c.Title) : query.OrderBy(c => c.Title);
+                break;
 
-                case BranchOrdering.Title:
-                    query = ordering.IsDescending ? query.OrderByDescending(c => c.Title) : query.OrderBy(c => c.Title);
-                    break;
-
-                case BranchOrdering.Slug:
-                    query = ordering.IsDescending ? query.OrderByDescending(c => c.Slug) : query.OrderBy(c => c.Slug);
-                    break;
-            }
-
-            query = query.Skip(paging.Skip).Take(paging.Take);
-            return await _mapper.ProjectTo<BranchForFilterList>(query).ToListAsync();
+            case BranchOrdering.Slug:
+                query = ordering.IsDescending ? query.OrderByDescending(c => c.Slug) : query.OrderBy(c => c.Slug);
+                break;
         }
+
+        query = query.Skip(paging.Skip).Take(paging.Take);
+        return await _mapper.ProjectTo<BranchForFilterList>(query).ToListAsync();
     }
 }
