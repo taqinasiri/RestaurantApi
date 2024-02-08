@@ -1,7 +1,6 @@
 ﻿using Restaurant.Application.Extensions;
 using Restaurant.Application.Features.Product.Requests.Commands;
 using Restaurant.Application.Features.Product.Requests.Queries;
-using Uri = System.Web.Http;
 
 namespace Restaurant.Api.Controllers;
 
@@ -90,7 +89,7 @@ public class ProductController(IMediator mediator) : ControllerBase
     /// - 404 : Category not found
     /// </remarks>
     [HttpPost]
-    public async Task<ActionResult> Create(CreateProductCommand command)
+    public async Task<IActionResult> Create(CreateProductCommand command)
     {
         await _mediator.Send(command);
         return Ok();
@@ -108,7 +107,7 @@ public class ProductController(IMediator mediator) : ControllerBase
     /// 404 : Product not found | Category not foun
     /// </remarks>
     [HttpPut("{id:long}")]
-    public async Task<ActionResult> Update(UpdateProductCommand command,long id)
+    public async Task<IActionResult> Update(UpdateProductCommand command,long id)
     {
         command.Id = id;
         await _mediator.Send(command);
@@ -116,4 +115,15 @@ public class ProductController(IMediator mediator) : ControllerBase
     }
 
     #endregion PUT
+
+    #region DELETE
+
+    [HttpDelete("{id:long}")]
+    public async Task<IActionResult> Delete(long id)
+    {
+        await _mediator.Send(new DeleteProductCommand(id));
+        return Ok();
+    }
+
+    #endregion DELETE
 }
