@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Restaurant.Application.Features.Category.Requests.Queries;
 using Restaurant.Application.Models;
-using Restaurant.Domain.Entities;
 
 namespace Restaurant.Persistence.Repositories;
 
@@ -10,7 +9,7 @@ public class CategoryRepository(IMapper mapper,ApplicationDbContext context) : G
     private readonly IMapper _mapper = mapper;
     private DbSet<Category> _categories = context.Set<Category>();
 
-    public async ValueTask<List<CategoryForFilterList>> GetByFilterAsync(CategoryFilters filter,PagingQuery paging,OrderingModel<CategoryOrdering> ordering)
+    public async ValueTask<GetByFilterResult<CategoryForFilterList>> GetByFilterAsync(CategoryFilters filter,PagingQuery paging,OrderingModel<CategoryOrdering> ordering)
     {
         var query = _categories.AsQueryable();
         if(filter.Slug!.IsNotNull())
@@ -36,8 +35,14 @@ public class CategoryRepository(IMapper mapper,ApplicationDbContext context) : G
                 break;
         }
 
+        var resultsCount = await query.CountAsync();
         query = query.Skip(paging.Skip).Take(paging.Take);
-        return await _mapper.ProjectTo<CategoryForFilterList>(query).ToListAsync();
+
+        return new()
+        {
+            Data = await _mapper.ProjectTo<CategoryForFilterList>(query).ToListAsync(),
+            ResultsCount = resultsCount,
+        };
     }
 
     public async ValueTask<bool> IsExistsByTitleOrSlug(string title,string slug)

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Restaurant.Application.Features.Category.Requests.Queries;
 using Restaurant.Application.Features.Product.Requests.Queries;
 using Restaurant.Application.Helpers;
 using Restaurant.Application.Models;
@@ -16,7 +17,7 @@ public class ProductRepository(IMapper mapper,ApplicationDbContext context) : Ge
     public async ValueTask<GetProductDetailsResponse> GetDetailsById(int id)
         => (await _mapper.ProjectTo<GetProductDetailsResponse>(_products.Where(p => p.Id == id)).FirstOrDefaultAsync())!;
 
-    public async ValueTask<List<ProductForFilterList>> GetByFilterAsync(ProductFilters filter,Paging paging,OrderingModel<ProductOrdering> ordering)
+    public async ValueTask<GetByFilterResult<ProductForFilterList>> GetByFilterAsync(ProductFilters filter,PagingQuery paging,OrderingModel<ProductOrdering> ordering)
     {
         var query = _products.AsQueryable();
         if(filter.Slug!.IsNotNull())
@@ -44,7 +45,12 @@ public class ProductRepository(IMapper mapper,ApplicationDbContext context) : Ge
                 break;
         }
 
+        var resultsCount = await query.CountAsync();
         query = query.Skip(paging.Skip).Take(paging.Take);
-        return await _mapper.ProjectTo<ProductForFilterList>(query).ToListAsync();
+        return new()
+        {
+            Data = await _mapper.ProjectTo<ProductForFilterList>(query).ToListAsync(),
+            ResultsCount = resultsCount,
+        };
     }
 }

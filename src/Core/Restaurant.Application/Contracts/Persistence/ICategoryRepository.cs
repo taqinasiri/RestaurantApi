@@ -6,5 +6,5 @@ public interface ICategoryRepository : IGenericRepository<Category>
 {
     ValueTask<bool> IsExistsByTitleOrSlug(string title,string slug);
 
-    ValueTask<List<CategoryForFilterList>> GetByFilterAsync(CategoryFilters filter,PagingQuery paging,OrderingModel<CategoryOrdering> ordering);
+    ValueTask<GetByFilterResult<CategoryForFilterList>> GetByFilterAsync(CategoryFilters filter,PagingQuery paging,OrderingModel<CategoryOrdering> ordering);
 }

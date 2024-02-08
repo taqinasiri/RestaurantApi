@@ -11,10 +11,14 @@ public class GetProductsByFilterQueryHandler(IProductRepository productRepositor
         int entitiesCount = await _productRepository.GetEntitiesCountAsync();
         var paging = request.Paging.ToPaging(entitiesCount);
 
+        var products = await _productRepository.GetByFilterAsync(request.Filters,paging,request.Ordering);
+
+        paging.ResultsCount = products.ResultsCount;
+
         return new()
         {
             Paging = paging,
-            Products = await _productRepository.GetByFilterAsync(request.Filters,paging,request.Ordering)
+            Products = products.Data
         };
     }
 }

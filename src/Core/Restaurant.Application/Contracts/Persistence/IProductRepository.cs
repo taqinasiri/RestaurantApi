@@ -8,5 +8,5 @@ public interface IProductRepository : IGenericRepository<Product>
 
     ValueTask<bool> IsExistsByTitleOrSlug(string title,string slug);
 
-    ValueTask<List<ProductForFilterList>> GetByFilterAsync(ProductFilters filter,Paging paging,OrderingModel<ProductOrdering> ordering);
+    ValueTask<GetByFilterResult<ProductForFilterList>> GetByFilterAsync(ProductFilters filter,PagingQuery paging,OrderingModel<ProductOrdering> ordering);
 }

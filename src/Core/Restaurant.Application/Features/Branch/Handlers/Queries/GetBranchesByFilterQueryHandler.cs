@@ -11,10 +11,14 @@ public class GetBranchesByFilterQueryHandler(IBranchRepository branchRepository)
         int entitiesCount = await _branchRepository.GetEntitiesCountAsync();
         var paging = request.Paging.ToPaging(entitiesCount);
 
+        var branches = await _branchRepository.GetByFilterAsync(request.Filters,paging,request.Ordering);
+
+        paging.ResultsCount = branches.ResultsCount;
+
         return new()
         {
             Paging = paging,
-            Branches = await _branchRepository.GetByFilterAsync(request.Filters,paging,request.Ordering)
+            Branches = branches.Data
         };
     }
 }

@@ -5,17 +5,18 @@ public class Paging
     public Paging(int entitiesCount,int page = 1,int take = 10)
     {
         EntitiesCount = entitiesCount;
+        ResultsCount = entitiesCount;
         Page = page;
         Take = take;
     }
 
     private int _page;
     private int _take;
-
     private int _entitiesCount;
 
+    public int ResultsCount { get; set; }
     public int Skip => (Page - 1) * Take;
-    public int PagesCount => (int)Math.Ceiling(EntitiesCount / (double)Take);
+    public int PagesCount => (int)Math.Ceiling(ResultsCount / (double)Take);
 
     public int EntitiesCount
     {

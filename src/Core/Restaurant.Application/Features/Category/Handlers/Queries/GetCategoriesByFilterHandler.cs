@@ -9,12 +9,17 @@ public class GetCategoriesByFilterHandler(ICategoryRepository categoryRepository
     public async Task<GetCategoriesByFilterResponse> Handle(GetCategoriesByFilterQuery request,CancellationToken cancellationToken)
     {
         int entitiesCount = await _categoryRepository.GetEntitiesCountAsync();
+
         var paging = request.Paging.ToPaging(entitiesCount);
+
+        var categories = await _categoryRepository.GetByFilterAsync(request.Filters,paging,request.Ordering);
+
+        paging.ResultsCount = categories.ResultsCount;
 
         return new()
         {
             Paging = paging,
-            Categories = await _categoryRepository.GetByFilterAsync(request.Filters,paging,request.Ordering)
+            Categories = categories.Data
         };
     }
 }
