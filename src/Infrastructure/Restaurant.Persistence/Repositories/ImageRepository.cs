@@ -12,4 +12,7 @@ public class ImageRepository(ApplicationDbContext context) : GenericRepository<I
 
     public async ValueTask<Image> FindForProduct(string name,long productId)
         => (await _images.SingleOrDefaultAsync(i => i.Name == name && i.Products.First().Product.Id == productId))!;
+
+    public async ValueTask<Image> FindForTable(string name,long productId)
+        => (await _images.SingleOrDefaultAsync(i => i.Name == name && i.Tables.First().Table.Id == productId))!;
 }

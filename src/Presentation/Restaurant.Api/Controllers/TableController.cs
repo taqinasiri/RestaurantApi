@@ -26,4 +26,23 @@ public class TableController(IMediator mediator) : ControllerBase
     }
 
     #endregion POST
+
+    #region PUT
+
+    /// <summary>
+    /// Update a table
+    /// </summary>
+    /// <remarks>
+    /// - 400 : Title or slug exists | File upload error
+    /// - 404 : table not found
+    /// </remarks>
+    [HttpPut("{id:long}")]
+    public async Task<IActionResult> Update(UpdateTableCommand command,int id)
+    {
+        command.Id = id;
+        await _mediator.Send(command);
+        return Ok();
+    }
+
+    #endregion PUT
 }
