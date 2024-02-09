@@ -1,4 +1,5 @@
 ﻿using Restaurant.Application.Features.Table.Requests.Commands;
+using Restaurant.Application.Features.Table.Requests.Queries;
 
 namespace Restaurant.Api.Controllers;
 
@@ -8,6 +9,23 @@ namespace Restaurant.Api.Controllers;
 public class TableController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator _mediator = mediator;
+
+    #region GET
+
+    /// <summary>
+    /// Get a table details
+    /// </summary>
+    /// <remarks>
+    /// 404 : table not found
+    /// </remarks>
+    [HttpGet("{id:long}")]
+    public async Task<IActionResult> Get(long id)
+    {
+        var response = await _mediator.Send(new GetTableDetailsQuery(id));
+        return Ok(response);
+    }
+
+    #endregion GET
 
     #region POST
 
