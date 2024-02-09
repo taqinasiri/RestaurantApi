@@ -9,6 +9,7 @@ public static class Messages
         public const string RegularExpression = "فرمت عبارت وارد شده اشتباه است.";
         public const string MaxFileSize = "اندازه فایل بیش از حد مجاز است";
         public const string FileExtensionNotValid = "فرمت فایل غیر مجاز میباشد";
+        public const string GreaterThanZero = "0 باید بزرگتر از {PropertyName} باشد";
     }
 
     public static class Subjects
