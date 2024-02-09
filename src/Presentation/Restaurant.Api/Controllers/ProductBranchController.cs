@@ -15,7 +15,7 @@ public class ProductBranchController(IMediator mediator) : ControllerBase
     /// Add a product to a branch
     /// </summary>
     /// <remarks>
-    /// 404 : Product not found | Branch not found
+    /// - 404 : Product not found | Branch not found
     /// > **if Product to exits returned 200 whit out error or edit**
     /// </remarks>
     [HttpPost]
@@ -26,4 +26,47 @@ public class ProductBranchController(IMediator mediator) : ControllerBase
     }
 
     #endregion POST
+
+    #region PUT
+
+    /// <summary>
+    /// Update a Product to branch price
+    /// </summary>
+    /// <remarks>
+    /// - 404 : Product to branch not found
+    /// </remarks>
+    [HttpPut]
+    public async Task<IActionResult> UpdatePrice(UpdateProductToBranchPriceCommand command)
+    {
+        await _mediator.Send(command);
+        return Ok();
+    }
+
+    /// <summary>
+    /// Update a Product to branch is active status
+    /// </summary>
+    /// <remarks>
+    /// - 404 : Product to branch not found
+    /// </remarks>
+    [HttpPut]
+    public async Task<IActionResult> UpdateIsActive(UpdateProductToBranchIsActiveCommand command)
+    {
+        await _mediator.Send(command);
+        return Ok();
+    }
+
+    /// <summary>
+    /// Update a Product to branch is available status
+    /// </summary>
+    /// <remarks>
+    /// - 404 : Product to branch not found
+    /// </remarks>
+    [HttpPut]
+    public async Task<IActionResult> UpdateIsAvailable(UpdateProductToBranchIsAvailableCommand command)
+    {
+        await _mediator.Send(command);
+        return Ok();
+    }
+
+    #endregion PUT
 }

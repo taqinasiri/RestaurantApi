@@ -14,9 +14,18 @@ public class ProductBranchRepository(ApplicationDbContext context) : IProductBra
     public async ValueTask<bool> IsExists(long productId,long branchId)
         => await _productToBranches.AnyAsync(p => p.ProductId == productId && p.BranchId == branchId);
 
+    public async ValueTask<ProductToBranch> FindByIdsAsync(long productId,long branchId)
+        => (await _productToBranches.SingleOrDefaultAsync(p => p.ProductId == productId && p.BranchId == branchId))!;
+
     private async Task CheckIsSave(bool isSave)
     {
         if(isSave)
             await _context.SaveChangesAsync();
+    }
+
+    public async Task UpdateAsync(ProductToBranch productToBranch,bool isSave = true)
+    {
+        _productToBranches.Update(productToBranch);
+        await CheckIsSave(isSave);
     }
 }
