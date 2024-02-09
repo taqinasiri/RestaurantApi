@@ -1,4 +1,6 @@
-﻿namespace Restaurant.Application.Features.Table.Requests.Queries;
+﻿using Restaurant.Application.Features.Table.Common;
+
+namespace Restaurant.Application.Features.Table.Requests.Queries;
 
 public class GetTableDetailsQuery(long id) : IRequest<GetTableDetailsResponse>
 {
@@ -14,5 +16,3 @@ public record GetTableDetailsResponse(
     int RentalMinutePrice,
     bool IsAvailable,
     BranchForTableDto Branch);
-
-public record BranchForTableDto(long Id,string Title,string Slug);

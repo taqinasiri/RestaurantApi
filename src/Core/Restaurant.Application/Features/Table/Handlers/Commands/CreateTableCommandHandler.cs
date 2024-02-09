@@ -56,6 +56,7 @@ public class CreateTableCommandHandler(
             }
         }
 
+        table.IsAvailable = true;
         await _tableRepository.CreateAsync(table);
     }
 }
