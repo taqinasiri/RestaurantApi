@@ -67,4 +67,5 @@ public class FileFolders
     public string CategoryPictures { get; set; } = null!;
     public string ProductPictures { get; set; } = null!;
     public string BranchPictures { get; set; } = null!;
+    public string TablePictures { get; set; } = null!;
 }
