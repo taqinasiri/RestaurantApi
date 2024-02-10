@@ -1,9 +1,4 @@
 ﻿using Restaurant.Application.Configs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Restaurant.Application.Features.Product.Requests.Commands.Validators;
 
@@ -24,6 +19,10 @@ public class UpdateProductCommandValidation : AbstractValidator<UpdateProductCom
         RuleFor(p => p.Slug)
           .MaximumLength(100).WithMessage(Messages.Validation.MaxLength)
           .Matches(RegularExpressions.Slug).WithMessage(Messages.Validation.RegularExpression);
+
+        RuleFor(p => p.Price)
+          .NotNull().WithMessage(Messages.Validation.MaxLength)
+          .GreaterThan(0).WithMessage(Messages.Validation.GreaterThanZero);
 
         RuleForEach(p => p.NewImagesBase64)
           .Matches(RegularExpressions.Base64).WithMessage(Messages.Validation.RegularExpression)

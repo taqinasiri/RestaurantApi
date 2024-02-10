@@ -82,6 +82,7 @@ public class UpdateProductCommandHandler(
         product.Title = request.Title;
         product.Slug = request.Slug;
         product.Description = request.Description;
+        product.Price = request.Price;
         await _productRepository.UpdateAsync(product);
     }
 }

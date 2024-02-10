@@ -5,7 +5,6 @@ public class ProductToBranch : IAuditableEntity
     public long ProductId { get; set; }
     public long BranchId { get; set; }
 
-    public int Price { get; set; }
     public bool IsAvailable { get; set; }
     public bool IsActive { get; set; }
 

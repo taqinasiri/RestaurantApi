@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using Restaurant.Application.Features.Category.Requests.Queries;
 using Restaurant.Application.Features.Product.Requests.Queries;
-using Restaurant.Application.Helpers;
 using Restaurant.Application.Models;
 
 namespace Restaurant.Persistence.Repositories;
@@ -24,10 +22,18 @@ public class ProductRepository(IMapper mapper,ApplicationDbContext context) : Ge
             query = query.Where(p => p.Slug.Contains(filter.Slug!));
         if(filter.Title!.IsNotNull())
             query = query.Where(p => p.Title.Contains(filter.Title!));
+        if(filter.FromPrice is not null)
+            query = query.Where(p => p.Price >= filter.FromPrice);
+        if(filter.ToPrice is not null)
+            query = query.Where(p => p.Price <= filter.ToPrice);
+
         if(filter.CategoryIds?.Count > 0)
             query = query.Where(p => p.Categories.Any(c => filter.CategoryIds.Contains(c.Category.Id)));
+
         if(filter.AvailableInBranchIds?.Count > 0)
-            query = query.Where(p => p.Branches.Any(b => b.IsAvailable && filter.AvailableInBranchIds.Contains(b.Branch.Id)));
+            query = query.Where(p => p.Branches.Any(b => b.IsActive && filter.AvailableInBranchIds.Contains(b.Branch.Id)));
+        if(filter.IsAvailable is not null)
+            query = query.Where(p => p.Branches.Any(b => b.IsAvailable == filter.IsAvailable));
 
         switch(ordering.OrderBy)
         {
@@ -42,6 +48,10 @@ public class ProductRepository(IMapper mapper,ApplicationDbContext context) : Ge
 
             case ProductOrdering.Slug:
                 query = ordering.IsDescending ? query.OrderByDescending(c => c.Slug) : query.OrderBy(c => c.Slug);
+                break;
+
+            case ProductOrdering.Price:
+                query = ordering.IsDescending ? query.OrderByDescending(c => c.Price) : query.OrderBy(c => c.Price);
                 break;
         }
 

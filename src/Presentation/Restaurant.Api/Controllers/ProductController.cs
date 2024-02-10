@@ -19,7 +19,7 @@ public class ProductController(IMediator mediator) : ControllerBase
     /// <param name="page">Page number</param>
     /// <param name="take">items per page</param>
     /// <param name="orderDescending">Default value : true</param>
-    /// <param name="orderBy">0 : Default | 1 : Title | 2 : Slug</param>
+    /// <param name="orderBy">0 : Default | 1 : Title | 2 : Slug | 3 : Price</param>
     /// <param name="title">filter by title</param>
     /// <param name="slug">filter by slug</param>
     /// <param name="categories">filter by category ids | Template : 10,8,16</param>
@@ -31,7 +31,8 @@ public class ProductController(IMediator mediator) : ControllerBase
         bool orderDescending = true,ProductOrdering? orderBy = null,
         string? title = null,string? slug = null,
         string? categories = null,
-        string? branches = null)
+        string? branches = null,
+        int? fromPrice = null,int? toPrice = null,bool? isAvailable = null)
     {
         var categoryIds = new List<long>();
         var branchIds = new List<long>();
@@ -48,7 +49,7 @@ public class ProductController(IMediator mediator) : ControllerBase
 
         GetProductsByFilterQuery request = new()
         {
-            Filters = new(title,slug)
+            Filters = new(title,slug,fromPrice,toPrice,isAvailable)
             {
                 CategoryIds = categoryIds,
                 AvailableInBranchIds = branchIds
@@ -118,6 +119,12 @@ public class ProductController(IMediator mediator) : ControllerBase
 
     #region DELETE
 
+    /// <summary>
+    /// Delete a product
+    /// </summary>
+    /// <remarks>
+    /// 404 : Product not found
+    /// </remarks>
     [HttpDelete("{id:long}")]
     public async Task<IActionResult> Delete(long id)
     {

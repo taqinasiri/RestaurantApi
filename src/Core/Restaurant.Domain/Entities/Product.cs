@@ -17,6 +17,8 @@ public class Product : EntityBase
     [MaxLength(5000)]
     public string? Description { get; set; }
 
+    public int Price { get; set; }
+
     #region Relations
 
     public ICollection<CategoryToProduct>? Categories { get; set; }

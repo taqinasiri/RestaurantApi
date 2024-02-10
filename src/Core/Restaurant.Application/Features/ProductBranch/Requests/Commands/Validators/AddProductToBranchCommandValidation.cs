@@ -4,10 +4,6 @@ public class AddProductToBranchCommandValidation : AbstractValidator<AddProductT
 {
     public AddProductToBranchCommandValidation()
     {
-        RuleFor(p => p.Price)
-        .NotNull().WithMessage(Messages.Validation.Required)
-        .GreaterThan(0).WithMessage(Messages.Validation.GreaterThanZero);
-
         RuleFor(p => p.ProductId)
         .NotNull().WithMessage(Messages.Validation.Required)
         .GreaterThan(0).WithMessage(Messages.Validation.GreaterThanZero);

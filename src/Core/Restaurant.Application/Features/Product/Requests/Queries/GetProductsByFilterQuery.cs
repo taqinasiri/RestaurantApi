@@ -13,10 +13,10 @@ public class GetProductsByFilterQuery : IRequest<GetProductsByFilterResponse>
 
 public enum ProductOrdering
 {
-    Default, Title, Slug
+    Default, Title, Slug, Price
 }
 
-public record ProductFilters(string? Title = null,string? Slug = null)
+public record ProductFilters(string? Title = null,string? Slug = null,int? FromPrice = null,int? ToPrice = null,bool? IsAvailable = null)
 {
     public List<long>? CategoryIds { get; set; }
     public List<long>? AvailableInBranchIds { get; set; }
@@ -33,6 +33,8 @@ public record class GetProductsByFilterResponse
 }
 public record ProductForFilterList(long Id,string Title,string Slug)
 {
+    public string? Image { get; set; }
+    public int? Price { get; set; }
     public List<CategoryForProductDto>? Categories { get; set; }
 }
 

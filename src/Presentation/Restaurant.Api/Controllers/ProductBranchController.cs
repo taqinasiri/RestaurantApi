@@ -30,19 +30,6 @@ public class ProductBranchController(IMediator mediator) : ControllerBase
     #region PUT
 
     /// <summary>
-    /// Update a Product to branch price
-    /// </summary>
-    /// <remarks>
-    /// - 404 : Product to branch not found
-    /// </remarks>
-    [HttpPut]
-    public async Task<IActionResult> UpdatePrice(UpdateProductToBranchPriceCommand command)
-    {
-        await _mediator.Send(command);
-        return Ok();
-    }
-
-    /// <summary>
     /// Update a Product to branch is active status
     /// </summary>
     /// <remarks>
