@@ -1,4 +1,6 @@
-﻿namespace Restaurant.Domain.Entities;
+﻿using Restaurant.Domain.Entities.Identity;
+
+namespace Restaurant.Domain.Entities;
 
 [Table("Branches")]
 [Index(nameof(Title),IsUnique = true)]
@@ -21,12 +23,14 @@ public class Branch : EntityBase
     [MaxLength(200)]
     public string Address { get; set; } = null!;
 
+    public long AdminId { get; set; }
+
     #region Relations
 
     public ICollection<ImageToBranch>? Images { get; set; }
     public ICollection<ProductToBranch>? Products { get; set; }
     public ICollection<Table>? Tables { get; set; }
-    public ICollection<UserBranchRoles>? BranchRoles { get; set; }
+    public User Admin { get; set; } = null!;
 
     #endregion Relations
 }

@@ -8,7 +8,7 @@ public class User : IdentityUser<long>, IAuditableEntity
 
     #region Relations
 
-    public ICollection<UserBranchRoles>? BranchRoles { get; set; }
+    public ICollection<Branch>? Branches { get; set; }
 
     #endregion Relations
 }

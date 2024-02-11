@@ -7,6 +7,7 @@ public class UpdateBranchCommand : IRequest
     public string Slug { get; set; } = null!;
     public string Address { get; set; } = null!;
     public string? Description { get; set; }
+    public long? AdminId { get; set; }
     public List<string>? NewImagesBase64 { get; set; }
     public List<string>? RemoveImageNames { get; set; }
 }

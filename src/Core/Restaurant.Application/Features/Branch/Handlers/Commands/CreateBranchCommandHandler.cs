@@ -1,9 +1,5 @@
-﻿using Microsoft.Extensions.Options;
-using Restaurant.Application.Contracts.Infrastructure;
-using Restaurant.Application.Contracts.Persistence;
+﻿using Restaurant.Application.Contracts.Identity;
 using Restaurant.Application.Features.Branch.Requests.Commands;
-using Restaurant.Domain.Entities;
-using System.Net.Http.Headers;
 
 namespace Restaurant.Application.Features.Branch.Handlers.Commands;
 
@@ -12,16 +8,22 @@ public class CreateBranchCommandHandler(
     IBranchRepository branchRepository,
     IImageRepository imageRepository,
     IFileUploadService fileUploadService,
+    IApplicationUserManager userManager,
     IOptionsMonitor<SiteSettings> options) : IRequestHandler<CreateBranchCommand>
 {
     private readonly IMapper _mapper = mapper;
     private readonly IBranchRepository _branchRepository = branchRepository;
     private readonly IImageRepository _imageRepository = imageRepository;
     private readonly IFileUploadService _fileUploadService = fileUploadService;
+    private readonly IApplicationUserManager _userManager = userManager;
     private readonly string _branchPicturesFolderPath = options.CurrentValue.FileFolders.BranchPictures;
 
     public async Task Handle(CreateBranchCommand request,CancellationToken cancellationToken)
     {
+        bool isExitsUser = await _userManager.IsExists(request.AdminId);
+        if(!isExitsUser)
+            throw new NotFoundException("User");
+
         var brach = _mapper.Map<Entities.Branch>(request);
         bool isExists = await _branchRepository.IsExistsByTitleOrSlug(request.Title,request.Slug);
         if(isExists)

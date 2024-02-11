@@ -1,4 +1,5 @@
-﻿using Restaurant.Application.Features.Branch.Requests.Commands;
+﻿using Restaurant.Application.Contracts.Identity;
+using Restaurant.Application.Features.Branch.Requests.Commands;
 
 namespace Restaurant.Application.Features.Branch.Handlers.Commands;
 
@@ -7,16 +8,26 @@ public class UpdateBranchCommandHandler(
     IBranchRepository branchRepository,
     IImageRepository imageRepository,
     IFileUploadService fileUploadService,
+    IApplicationUserManager userManager,
     IOptionsMonitor<SiteSettings> options) : IRequestHandler<UpdateBranchCommand>
 {
     private readonly IMapper _mapper = mapper;
     private readonly IBranchRepository _branchRepository = branchRepository;
     private readonly IImageRepository _imageRepository = imageRepository;
     private readonly IFileUploadService _fileUploadService = fileUploadService;
+    private readonly IApplicationUserManager _userManager = userManager;
+
     private readonly string _branchPicturesFolderPath = options.CurrentValue.FileFolders.BranchPictures;
 
     public async Task Handle(UpdateBranchCommand request,CancellationToken cancellationToken)
     {
+        if(request.AdminId is not null and not 0)
+        {
+            bool isExitsUser = await _userManager.IsExists(request.AdminId.Value);
+            if(!isExitsUser)
+                throw new NotFoundException("User");
+        }
+
         var branch = await _branchRepository.FindByIdAsync(request.Id,false) ?? throw new NotFoundException("Branch");
 
         bool isExists = await _branchRepository.IsExistsByTitleOrSlug(request.Title,request.Slug);

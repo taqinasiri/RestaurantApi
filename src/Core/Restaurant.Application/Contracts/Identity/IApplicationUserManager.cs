@@ -203,5 +203,7 @@ public interface IApplicationUserManager : IDisposable
 
     Task UpdateSendCodeLastTime(User user,DateTime dateTime,bool isSave);
 
+    ValueTask<bool> IsExists(long id);
+
     #endregion Custom
 }

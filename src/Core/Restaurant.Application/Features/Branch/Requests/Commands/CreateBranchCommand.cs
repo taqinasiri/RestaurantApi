@@ -6,5 +6,6 @@ public class CreateBranchCommand : IRequest
     public string Slug { get; set; } = null!;
     public string Address { get; set; } = null!;
     public string? Description { get; set; }
+    public long AdminId { get; set; }
     public List<string>? ImagesBase64 { get; set; }
 }

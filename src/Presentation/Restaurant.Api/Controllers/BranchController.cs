@@ -62,6 +62,7 @@ public class BranchController(IMediator mediator) : ControllerBase
     /// <param name="command"></param>
     /// <remarks>
     /// - 400 : Title or slug exists | File upload error
+    /// - 404 : user not found
     /// </remarks>
     [HttpPost]
     public async Task<ActionResult> Create(CreateBranchCommand command)
@@ -79,7 +80,7 @@ public class BranchController(IMediator mediator) : ControllerBase
     /// </summary>
     /// <remarks>
     /// - 400 : File upload error
-    /// - 404 : Branch not found
+    /// - 404 : Branch not found | user not found
     /// </remarks>
     [HttpPut("{id:long}")]
     public async Task<ActionResult> Update(UpdateBranchCommand command,long id)

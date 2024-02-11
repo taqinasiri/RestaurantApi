@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Restaurant.Application.Contracts.Identity;
-using Restaurant.Persistence.Contexts;
 
 namespace Restaurant.Persistence.Services.Identity;
 
@@ -30,4 +29,7 @@ public class ApplicationUserManager(
         if(isSave)
             await _context.SaveChangesAsync();
     }
+
+    public async ValueTask<bool> IsExists(long id)
+        => await _users.AnyAsync(u => u.Id == id);
 }
