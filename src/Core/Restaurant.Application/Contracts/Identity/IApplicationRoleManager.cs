@@ -30,4 +30,10 @@ public interface IApplicationRoleManager : IDisposable
     IQueryable<Role> Roles { get; }
 
     #endregion BaseClass
+
+    #region Custom
+
+    Task<bool> IsExitsRoles(string[] newRoles);
+
+    #endregion Custom
 }
