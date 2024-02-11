@@ -1,6 +1,4 @@
-﻿using Restaurant.Application.Extensions;
-using Restaurant.Application.Features.Product.Requests.Queries;
-using Restaurant.Application.Features.Table.Requests.Commands;
+﻿using Restaurant.Application.Features.Table.Requests.Commands;
 using Restaurant.Application.Features.Table.Requests.Queries;
 
 namespace Restaurant.Api.Controllers;
@@ -8,6 +6,7 @@ namespace Restaurant.Api.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 [ApiResultFilter]
+[Authorize(PolicyNames.TableManage,AuthenticationSchemes = "Bearer")]
 public class TableController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator _mediator = mediator;
@@ -26,6 +25,7 @@ public class TableController(IMediator mediator) : ControllerBase
     /// <param name="space">filter by space numbers</param>
     /// <param name="isAvailable">filter by available status</param>
     /// <param name="branchId">filter by branch id</param>
+    [AllowAnonymous]
     [HttpGet]
     [ProducesResponseOkApiResult<GetTablesByFilterResponse>]
     public async Task<IActionResult> Get(
@@ -50,6 +50,7 @@ public class TableController(IMediator mediator) : ControllerBase
     /// <remarks>
     /// 404 : table not found
     /// </remarks>
+    [AllowAnonymous]
     [HttpGet("{id:long}")]
     public async Task<IActionResult> Get(long id)
     {

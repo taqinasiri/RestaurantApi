@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Restaurant.Application.Configs.MediatR;
 using Restaurant.Application.Contracts.Identity;
-using Restaurant.Application.Models;
+using Restaurant.Domain.Constants;
 using System.Reflection;
 using System.Text;
 
@@ -26,6 +26,7 @@ public static class ApplicationServicesRegistration
 
         var jwtConfigs = configuration.Get<SiteSettings>(configuration.Bind)!.JwtConfigs;
         services.AddJWTAuthentication(jwtConfigs);
+        services.AddAuthorizationPolicies();
         return services;
     }
 
@@ -86,6 +87,17 @@ public static class ApplicationServicesRegistration
                 }
             };
         });
+        return services;
+    }
+
+    public static IServiceCollection AddAuthorizationPolicies(this IServiceCollection services)
+    {
+        services.AddAuthorizationBuilder()
+            .AddPolicy(PolicyNames.Admin,policy => policy.RequireRole(ConstantRoles.Admin))
+            .AddPolicy(PolicyNames.CategoryManager,policy => policy.RequireRole(ConstantRoles.Admin,ConstantRoles.CategoryManager))
+            .AddPolicy(PolicyNames.ProductManager,policy => policy.RequireRole(ConstantRoles.Admin,ConstantRoles.ProductManager))
+            .AddPolicy(PolicyNames.BranchManager,policy => policy.RequireRole(ConstantRoles.Admin,ConstantRoles.BranchManager))
+            .AddPolicy(PolicyNames.TableManage,policy => policy.RequireRole(ConstantRoles.Admin,ConstantRoles.TableManager));
         return services;
     }
 }

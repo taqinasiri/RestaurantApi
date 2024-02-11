@@ -5,6 +5,7 @@ namespace Restaurant.Api.Controllers;
 [Route("api/[controller]/[action]")]
 [ApiController]
 [ApiResultFilter]
+[Authorize(PolicyNames.BranchManager,AuthenticationSchemes = "Bearer")]
 public class ProductBranchController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator _mediator = mediator;

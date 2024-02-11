@@ -1,12 +1,12 @@
 ﻿using Restaurant.Application.Features.Branch.Requests.Commands;
 using Restaurant.Application.Features.Branch.Requests.Queries;
-using Restaurant.Application.Features.Category.Requests.Queries;
 
 namespace Restaurant.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
 [ApiResultFilter]
+[Authorize(PolicyNames.BranchManager,AuthenticationSchemes = "Bearer")]
 public class BranchController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator _mediator = mediator;
@@ -24,6 +24,7 @@ public class BranchController(IMediator mediator) : ControllerBase
     /// <param name="slug">filter by slug</param>
     /// <param name="address">filter by address</param>
     /// <returns></returns>
+    [AllowAnonymous]
     [HttpGet]
     [ProducesResponseOkApiResult<GetBranchesByFilterResponse>]
     public async Task<ActionResult> Get(int page = 1,int take = 10,bool orderDescending = true,BranchOrdering? orderBy = null,string? title = null,string? slug = null,string? address = null)
@@ -44,6 +45,7 @@ public class BranchController(IMediator mediator) : ControllerBase
     /// <remarks>
     /// - 404 : Branch not found
     /// </remarks>
+    [AllowAnonymous]
     [HttpGet("{id:int}")]
     [ProducesResponseOkApiResult<GetBranchDetailsResponse>]
     public async Task<ActionResult> Get(int id)

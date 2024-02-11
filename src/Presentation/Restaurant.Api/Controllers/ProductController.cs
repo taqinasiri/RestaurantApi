@@ -1,5 +1,4 @@
-﻿using Restaurant.Application.Extensions;
-using Restaurant.Application.Features.Product.Requests.Commands;
+﻿using Restaurant.Application.Features.Product.Requests.Commands;
 using Restaurant.Application.Features.Product.Requests.Queries;
 
 namespace Restaurant.Api.Controllers;
@@ -7,6 +6,7 @@ namespace Restaurant.Api.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 [ApiResultFilter]
+[Authorize(PolicyNames.ProductManager,AuthenticationSchemes = "Bearer")]
 public class ProductController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator _mediator = mediator;
@@ -24,6 +24,7 @@ public class ProductController(IMediator mediator) : ControllerBase
     /// <param name="slug">filter by slug</param>
     /// <param name="categories">filter by category ids | Template : 10,8,16</param>
     /// <param name="branches">filter by branch ids | Template : 3,2</param>
+    [AllowAnonymous]
     [HttpGet]
     [ProducesResponseOkApiResult<GetProductsByFilterResponse>]
     public async Task<IActionResult> Get(
@@ -69,6 +70,7 @@ public class ProductController(IMediator mediator) : ControllerBase
     /// <remarks>
     /// 404 : product not found
     /// </remarks>
+    [AllowAnonymous]
     [HttpGet("{id:int}")]
     [ProducesResponseOkApiResult<GetProductDetailsResponse>]
     public async Task<IActionResult> Get(int id)

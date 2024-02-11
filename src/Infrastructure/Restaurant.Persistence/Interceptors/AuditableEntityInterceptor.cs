@@ -38,14 +38,14 @@ internal class AuditableEntityInterceptor : SaveChangesInterceptor
         {
             if(entry.State == EntityState.Added)
             {
-                SetCurrentPropertyValue(entry,AuditableShadowProperties.CreatedByUserId,_contextAccessor.HttpContext?.User.GetUserId());
+                SetCurrentPropertyValue(entry,AuditableShadowProperties.CreatedByUserId,(long?)_contextAccessor.HttpContext?.User.GetUserId());
                 SetCurrentPropertyValue(entry,AuditableShadowProperties.CreatedDateTime,utcNow);
                 SetCurrentPropertyValue(entry,AuditableShadowProperties.CreatedByIp,_contextAccessor.HttpContext?.GetIP());
                 SetCurrentPropertyValue(entry,AuditableShadowProperties.CreatedByBrowserName,_contextAccessor.HttpContext?.GetUserAgent());
             }
             else if(entry.State == EntityState.Modified)
             {
-                SetCurrentPropertyValue(entry,AuditableShadowProperties.ModifiedByUserId,_contextAccessor.HttpContext?.User.GetUserId());
+                SetCurrentPropertyValue(entry,AuditableShadowProperties.ModifiedByUserId,(long?)_contextAccessor.HttpContext?.User.GetUserId());
                 SetCurrentPropertyValue(entry,AuditableShadowProperties.ModifiedDateTime,utcNow);
                 SetCurrentPropertyValue(entry,AuditableShadowProperties.ModifiedByIp,_contextAccessor.HttpContext?.GetIP());
                 SetCurrentPropertyValue(entry,AuditableShadowProperties.ModifiedByBrowserName,_contextAccessor.HttpContext?.GetUserAgent());

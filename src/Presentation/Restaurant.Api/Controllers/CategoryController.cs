@@ -1,12 +1,12 @@
 ﻿using Restaurant.Application.Features.Category.Requests.Commands;
 using Restaurant.Application.Features.Category.Requests.Queries;
-using Restaurant.Application.Features.User.Requests.Commands;
 
 namespace Restaurant.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
 [ApiResultFilter]
+[Authorize(PolicyNames.CategoryManager,AuthenticationSchemes = "Bearer")]
 public class CategoryController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator _mediator = mediator;
@@ -24,6 +24,7 @@ public class CategoryController(IMediator mediator) : ControllerBase
     /// <param name="slug">filter by slug</param>
     /// <param name="parentId">filter by parentId</param>
     /// <returns></returns>
+    [AllowAnonymous]
     [HttpGet]
     [ProducesResponseOkApiResult<GetCategoriesByFilterResponse>]
     public async Task<ActionResult> Get(int page = 1,int take = 10,bool orderDescending = true,CategoryOrdering? orderBy = null,string? title = null,string? slug = null,int parentId = 0)
@@ -41,6 +42,7 @@ public class CategoryController(IMediator mediator) : ControllerBase
     /// <summary>
     /// Get categories tree structure
     /// </summary>
+    [AllowAnonymous]
     [HttpGet("Tree/{depth:int}")]
     [ProducesResponseOkApiResult<GetCategoriesTreeResponse>]
     public async Task<ActionResult> Get(byte depth = 2)
@@ -55,6 +57,7 @@ public class CategoryController(IMediator mediator) : ControllerBase
     /// <remarks>
     /// - 404 : Category not found
     /// </remarks>
+    [AllowAnonymous]
     [HttpGet("{id:int}")]
     [ProducesResponseOkApiResult<GetCategoryDetailsResponse>]
     public async Task<ActionResult> Get(int id)
