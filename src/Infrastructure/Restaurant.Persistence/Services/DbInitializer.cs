@@ -28,6 +28,19 @@ public class DbInitializer(
         var result = dbInitializer.SeedRole(ConstantRoles.Admin).Result;
         if(result == IdentityResult.Failed())
             throw new InvalidOperationException();
+        result = dbInitializer.SeedRole(ConstantRoles.BranchManager).Result;
+        if(result == IdentityResult.Failed())
+            throw new InvalidOperationException();
+        result = dbInitializer.SeedRole(ConstantRoles.ProductManager).Result;
+        if(result == IdentityResult.Failed())
+            throw new InvalidOperationException();
+        result = dbInitializer.SeedRole(ConstantRoles.TableManager).Result;
+        if(result == IdentityResult.Failed())
+            throw new InvalidOperationException();
+        result = dbInitializer.SeedRole(ConstantRoles.CategoryManager).Result;
+        if(result == IdentityResult.Failed())
+            throw new InvalidOperationException();
+
         result = dbInitializer.SeedAdmin(siteSettings.AdminUserSeed.UserName,
             siteSettings.AdminUserSeed.Password,
             siteSettings.AdminUserSeed.Email,
