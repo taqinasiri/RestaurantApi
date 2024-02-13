@@ -1,4 +1,6 @@
-﻿namespace Restaurant.Application.Contracts.Identity;
+﻿using Restaurant.Application.Features.User.Requests.Queries;
+
+namespace Restaurant.Application.Contracts.Identity;
 
 public interface IApplicationUserManager : IDisposable
 {
@@ -204,6 +206,8 @@ public interface IApplicationUserManager : IDisposable
     Task UpdateSendCodeLastTime(User user,DateTime dateTime,bool isSave);
 
     ValueTask<bool> IsExists(long id);
+
+    ValueTask<GetUserDetailsResponse> GetDetailsById(long id);
 
     #endregion Custom
 }

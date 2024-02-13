@@ -1,4 +1,5 @@
 ﻿using Restaurant.Application.Features.User.Requests.Commands;
+using Restaurant.Application.Features.User.Requests.Queries;
 
 namespace Restaurant.Api.Controllers;
 
@@ -9,6 +10,17 @@ namespace Restaurant.Api.Controllers;
 public class UserController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator _mediator = mediator;
+
+    #region GET
+
+    [HttpGet("{id:long}")]
+    public async Task<IActionResult> Get(long id)
+    {
+        var result = await _mediator.Send(new GetUserDetailsQuery(id));
+        return Ok(result);
+    }
+
+    #endregion GET
 
     #region POST
 
