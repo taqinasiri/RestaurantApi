@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Restaurant.Application.Contracts.Identity;
 using Restaurant.Application.Features.User.Requests.Queries;
+using Restaurant.Application.Models;
 
 namespace Restaurant.Persistence.Services.Identity;
 
@@ -39,4 +40,47 @@ public class ApplicationUserManager(
 
     public async ValueTask<GetUserDetailsResponse> GetDetailsById(long id)
         => (await _mapper.ProjectTo<GetUserDetailsResponse>(_users.Where(u => u.Id == id)).FirstOrDefaultAsync())!;
+
+    public async ValueTask<int> GetEntitiesCountAsync() => await _users.CountAsync();
+
+    public async ValueTask<GetByFilterResult<UserForFilterList>> GetByFilterAsync(UserFilters filter,PagingQuery paging,OrderingModel<UserOrdering> ordering)
+    {
+        var query = _users.AsQueryable();
+        if(filter.UserName!.IsNotNull())
+            query = query.Where(u => u.UserName!.Contains(filter.UserName!));
+        if(filter.Email!.IsNotNull())
+            query = query.Where(u => u.Email.Contains(filter.Email!));
+        if(filter.PhoneNumber is not null)
+            query = query.Where(u => u.PhoneNumber.Contains(filter.PhoneNumber));
+        if(filter.IsActive is not null)
+            query = query.Where(u => u.IsActive == filter.IsActive);
+
+        switch(ordering.OrderBy)
+        {
+            case UserOrdering.Default:
+                if(ordering.IsDescending)
+                    query = query.OrderByDescending(c => c.Id);
+                break;
+
+            case UserOrdering.UserName:
+                query = ordering.IsDescending ? query.OrderByDescending(c => c.UserName) : query.OrderBy(c => c.UserName);
+                break;
+
+            case UserOrdering.Email:
+                query = ordering.IsDescending ? query.OrderByDescending(c => c.Email) : query.OrderBy(c => c.Email);
+                break;
+
+            case UserOrdering.PhoneNumber:
+                query = ordering.IsDescending ? query.OrderByDescending(c => c.PhoneNumber) : query.OrderBy(c => c.PhoneNumber);
+                break;
+        }
+
+        var resultsCount = await query.CountAsync();
+        query = query.Skip(paging.Skip).Take(paging.Take);
+        return new()
+        {
+            Data = await _mapper.ProjectTo<UserForFilterList>(query).ToListAsync(),
+            ResultsCount = resultsCount,
+        };
+    }
 }

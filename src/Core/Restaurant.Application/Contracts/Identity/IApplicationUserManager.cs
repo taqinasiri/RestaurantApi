@@ -209,5 +209,9 @@ public interface IApplicationUserManager : IDisposable
 
     ValueTask<GetUserDetailsResponse> GetDetailsById(long id);
 
+    ValueTask<int> GetEntitiesCountAsync();
+
+    ValueTask<GetByFilterResult<UserForFilterList>> GetByFilterAsync(UserFilters filter,PagingQuery paging,OrderingModel<UserOrdering> ordering);
+
     #endregion Custom
 }

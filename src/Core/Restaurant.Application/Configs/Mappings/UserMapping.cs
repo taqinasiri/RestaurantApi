@@ -7,5 +7,6 @@ public class UserMapping : Profile
     public UserMapping()
     {
         CreateMap<User,GetUserDetailsResponse>();
+        CreateMap<User,UserForFilterList>();
     }
 }
