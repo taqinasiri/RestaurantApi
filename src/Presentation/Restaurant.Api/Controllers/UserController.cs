@@ -73,4 +73,16 @@ public class UserController(IMediator mediator) : ControllerBase
     }
 
     #endregion POST
+
+    #region PUT
+
+    [HttpPut("{id:long}")]
+    public async Task<IActionResult> Update(UpdateUserCommand command,long id)
+    {
+        command.Id = id;
+        await _mediator.Send(command);
+        return Ok();
+    }
+
+    #endregion PUT
 }
