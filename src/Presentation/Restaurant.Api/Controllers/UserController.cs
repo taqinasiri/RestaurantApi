@@ -23,16 +23,18 @@ public class UserController(IMediator mediator) : ControllerBase
     /// <param name="email">filter by email</param>
     /// <param name="phoneNumber">filter by phone number</param>
     /// <param name="isActive">filter by active status</param>
+    /// <param name="role">filter by role</param>
     /// <returns></returns>
     [HttpGet]
     public async Task<IActionResult> Get(
         int page = 1,int take = 10,
         bool orderDescending = true,UserOrdering? orderBy = null,
-        string? userName = null,string? email = null,string? phoneNumber = null,bool? isActive = null)
+        string? userName = null,string? email = null,string? phoneNumber = null,bool? isActive = null
+        ,string? role = null)
     {
         GetUsersByFilterQuery request = new()
         {
-            Filters = new(userName,email,phoneNumber,isActive),
+            Filters = new(userName,email,phoneNumber,isActive,role),
             Ordering = new(orderBy ?? UserOrdering.Default,orderDescending),
             Paging = new(page,take)
         };

@@ -5,4 +5,7 @@ public class GetUserDetailsQuery(long id) : IRequest<GetUserDetailsResponse>
     public long Id { get; set; } = id;
 }
 
-public record GetUserDetailsResponse(long Id,string UserName,string Email,string PhoneNumber,string Avatar,bool IsActive);
+public record GetUserDetailsResponse(long Id,string UserName,string Email,string PhoneNumber,string Avatar,bool IsActive)
+{
+    public string[]? Roles { get; set; }
+}

@@ -6,7 +6,8 @@ public class UserMapping : Profile
 {
     public UserMapping()
     {
-        CreateMap<User,GetUserDetailsResponse>();
+        CreateMap<User,GetUserDetailsResponse>()
+            .ForMember(dest => dest.Roles,options => options.MapFrom(src => src.UserRoles.Select(r => r.Role.Name)));
         CreateMap<User,UserForFilterList>();
     }
 }

@@ -55,6 +55,9 @@ public class ApplicationUserManager(
         if(filter.IsActive is not null)
             query = query.Where(u => u.IsActive == filter.IsActive);
 
+        if(filter.Role!.IsNotNull())
+            query = query.Where(u => u.UserRoles.Any(r => r.Role.Name == filter.Role));
+
         switch(ordering.OrderBy)
         {
             case UserOrdering.Default:

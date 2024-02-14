@@ -14,7 +14,7 @@ public enum UserOrdering
     Default, UserName, Email, PhoneNumber
 }
 
-public record UserFilters(string? UserName = null,string? Email = null,string? PhoneNumber = null,bool? IsActive = null);
+public record UserFilters(string? UserName = null,string? Email = null,string? PhoneNumber = null,bool? IsActive = null,string? Role = null);
 
 #endregion Filters
 
