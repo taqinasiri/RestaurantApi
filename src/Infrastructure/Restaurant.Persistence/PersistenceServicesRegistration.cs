@@ -40,6 +40,7 @@ public static class PersistenceServicesRegistration
         services.AddScoped<ICategoryRepository,CategoryRepository>();
         services.AddScoped<IProductRepository,ProductRepository>();
         services.AddScoped<IBranchRepository,BranchRepository>();
+        services.AddScoped<IBranchWorkingHoursRepository,BranchWorkingHoursRepository>();
         services.AddScoped<IImageRepository,ImageRepository>();
         services.AddScoped<IProductBranchRepository,ProductBranchRepository>();
         services.AddScoped<ITableRepository,TableRepository>();

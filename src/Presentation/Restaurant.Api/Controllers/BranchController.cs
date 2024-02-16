@@ -6,9 +6,9 @@ namespace Restaurant.Api.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 [ApiResultFilter]
-[Authorize(PolicyNames.BranchManager,AuthenticationSchemes = "Bearer")]
 public class BranchController(IMediator mediator) : ControllerBase
 {
+    //[Authorize(PolicyNames.BranchManager,AuthenticationSchemes = "Bearer")]
     private readonly IMediator _mediator = mediator;
 
     #region GET
@@ -88,6 +88,23 @@ public class BranchController(IMediator mediator) : ControllerBase
     public async Task<ActionResult> Update(UpdateBranchCommand command,long id)
     {
         command.Id = id;
+        await _mediator.Send(command);
+        return Ok();
+    }
+
+    /// <summary>
+    /// Update branch working hours
+    /// </summary>
+    /// <remarks>
+    /// first clear all working hours then add
+    ///
+    /// **From and To Pattern => `HH:mm:ss`**
+    /// - 404 : Branch not found
+    /// </remarks>
+    [HttpPut("[action]/{id:long}")]
+    public async Task<ActionResult> ChangeWorkingHours(ChangeWorkingHoursCommand command,long id)
+    {
+        command.BranchId = id;
         await _mediator.Send(command);
         return Ok();
     }

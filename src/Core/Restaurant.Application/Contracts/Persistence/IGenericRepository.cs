@@ -19,4 +19,6 @@ public interface IGenericRepository<T> where T : EntityBase
     Task DeleteAsync(T entity,bool isSave = true,bool isSoft = true);
 
     Task CreateAsync(T entity,bool isSave = true);
+
+    Task SaveChangesAsync();
 }
