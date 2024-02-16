@@ -21,6 +21,7 @@ public class Image : EntityBase
     public ICollection<ImageToProduct>? Products { get; set; }
     public ICollection<ImageToBranch>? Branches { get; set; }
     public ICollection<ImageToTable>? Tables { get; set; }
+    public Category? Category { get; set; }
 
     #endregion Relations
 }

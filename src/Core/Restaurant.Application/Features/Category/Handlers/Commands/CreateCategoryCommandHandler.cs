@@ -40,7 +40,14 @@ public class CreateCategoryCommandHandler(
             {
                 throw new BadRequestException([Messages.Errors.FileUploadFiled]);
             }
-            caregory.Picture = fileUploadResult.FileName;
+            var image = new Image
+            {
+                Name = fileUploadResult.FileName!,
+                Extension = fileUploadResult.FileExtention,
+                Size = fileUploadResult.FileSize,
+                UploadDate = DateTime.Now
+            };
+            caregory.Image = image;
         }
 
         await _categoryRepository.CreateAsync(caregory);

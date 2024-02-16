@@ -16,8 +16,7 @@ public class Category : EntityBase
     [MaxLength(100)]
     public string Slug { get; set; } = null!;
 
-    [MaxLength(50)]
-    public string? Picture { get; set; }
+    public long? ImageId { get; set; }
 
     public long? ParentId { get; set; }
 
@@ -28,6 +27,7 @@ public class Category : EntityBase
 
     public ICollection<Category>? Children { get; set; }
     public ICollection<CategoryToProduct>? Products { get; set; }
+    public Image? Image { get; set; }
 
     #endregion Relations
 }
