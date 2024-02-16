@@ -69,7 +69,11 @@ public class DbInitializer(
             UserName = userName,
             Email = email,
             EmailConfirmed = true,
-            Avatar = avatar,
+            Avatar = new()
+            {
+                Name = avatar,
+                UploadDate = DateTime.Now,
+            }
         };
 
         var adminUserResult = await _userManager.CreateAsync(adminUser,password);

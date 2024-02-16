@@ -1,11 +1,5 @@
-﻿using Microsoft.Extensions.Options;
-using Restaurant.Application.Contracts.Identity;
-using Restaurant.Application.Contracts.Infrastructure;
-using Restaurant.Application.Exceptions;
-using Restaurant.Application.Extensions;
+﻿using Restaurant.Application.Contracts.Identity;
 using Restaurant.Application.Features.User.Requests.Commands;
-using Restaurant.Application.Helpers;
-using Restaurant.Application.Models;
 
 namespace Restaurant.Application.Features.User.Handlers.Commands;
 
@@ -55,7 +49,11 @@ internal class LoginRegisterCommandHandler(IApplicationUserManager userManager
             {
                 UserName = phoneNumberOrEmail.Split('@')[0],
                 Email = phoneNumberOrEmail,
-                Avatar = _siteSettings.UserDefaultAvatar,
+                Avatar = new()
+                {
+                    Name = _siteSettings.UserDefaultAvatar,
+                    UploadDate = DateTime.Now
+                },
                 SendCodeLastTime = sendCodeLastTime
             };
             var result = await _userManager.CreateAsync(user);
@@ -74,7 +72,11 @@ internal class LoginRegisterCommandHandler(IApplicationUserManager userManager
             {
                 UserName = phoneNumberOrEmail,
                 PhoneNumber = phoneNumberOrEmail,
-                Avatar = _siteSettings.UserDefaultAvatar,
+                Avatar = new()
+                {
+                    Name = _siteSettings.UserDefaultAvatar,
+                    UploadDate = DateTime.Now
+                },
                 Email = $"{StringHelper.GenerateGuid()}@test.com",
                 SendCodeLastTime = sendCodeLastTime
             };

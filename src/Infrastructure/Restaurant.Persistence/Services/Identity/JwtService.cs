@@ -35,7 +35,7 @@ public class JwtService(IOptionsMonitor<SiteSettings> options,IApplicationSignIn
         var result = await _signInManager.ClaimsFactory.CreateAsync(user);
         var claims = new List<Claim>(result.Claims)
         {
-            new(ClaimNames.Avatar,user.Avatar),
+            new(ClaimNames.Avatar,user.Avatar?.Name ?? ""),
         };
         return claims;
     }

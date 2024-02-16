@@ -64,6 +64,7 @@ public class JwtConfigs
 
 public class FileFolders
 {
+    public string UserAvatars { get; set; } = null!;
     public string CategoryPictures { get; set; } = null!;
     public string ProductPictures { get; set; } = null!;
     public string BranchPictures { get; set; } = null!;

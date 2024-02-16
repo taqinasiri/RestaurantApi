@@ -13,10 +13,7 @@ public class VerifyLoginCommandHandler(IApplicationUserManager userManager,IJwtS
         string phoneNumberOrEmail = request.PhoneNumberOrEmail;
         bool isEmail = phoneNumberOrEmail.IsEmail();
 
-        var user = (isEmail ?
-            await _userManager.FindByEmailAsync(phoneNumberOrEmail) :
-            await _userManager.FindByPhoneNumber(phoneNumberOrEmail))
-            ?? throw new NotFoundException("User");
+        var user = await _userManager.FindByEmailOrPhoneNumberForLogin(phoneNumberOrEmail) ?? throw new NotFoundException("User");
 
         bool isVerify = await _userManager.VerifyChangePhoneNumberTokenAsync(user,request.Code,phoneNumberOrEmail);
         if(!isVerify)

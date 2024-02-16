@@ -86,4 +86,7 @@ public class ApplicationUserManager(
             ResultsCount = resultsCount,
         };
     }
+
+    public async ValueTask<User> FindByEmailOrPhoneNumberForLogin(string emailOrPhoneNumber)
+        => (await _users.Include(u => u.Avatar).SingleOrDefaultAsync(u => u.PhoneNumber == emailOrPhoneNumber || u.Email == emailOrPhoneNumber))!;
 }

@@ -1,4 +1,6 @@
-﻿namespace Restaurant.Domain.Entities;
+﻿using Restaurant.Domain.Entities.Identity;
+
+namespace Restaurant.Domain.Entities;
 
 [Table("Images")]
 [Index(nameof(Name),IsUnique = true)]
@@ -22,6 +24,7 @@ public class Image : EntityBase
     public ICollection<ImageToBranch>? Branches { get; set; }
     public ICollection<ImageToTable>? Tables { get; set; }
     public Category? Category { get; set; }
+    public User? User { get; set; }
 
     #endregion Relations
 }

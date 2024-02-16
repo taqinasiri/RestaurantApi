@@ -213,5 +213,7 @@ public interface IApplicationUserManager : IDisposable
 
     ValueTask<GetByFilterResult<UserForFilterList>> GetByFilterAsync(UserFilters filter,PagingQuery paging,OrderingModel<UserOrdering> ordering);
 
+    ValueTask<User> FindByEmailOrPhoneNumberForLogin(string emailOrPhoneNumber);
+
     #endregion Custom
 }

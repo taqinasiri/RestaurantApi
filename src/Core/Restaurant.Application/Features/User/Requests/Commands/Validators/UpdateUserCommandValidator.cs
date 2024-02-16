@@ -1,4 +1,6 @@
-﻿namespace Restaurant.Application.Features.User.Requests.Commands.Validators;
+﻿using Restaurant.Application.Configs;
+
+namespace Restaurant.Application.Features.User.Requests.Commands.Validators;
 
 public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
 {
@@ -19,6 +21,11 @@ public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
             .NotNull().WithMessage(Messages.Validation.Required)
             .MaximumLength(50).WithMessage(Messages.Validation.MaxLength)
             .Matches(RegularExpressions.UserName).WithMessage(Messages.Validation.RegularExpression);
+
+        RuleFor(p => p.AvatarBase64)
+          .Matches(RegularExpressions.Base64).WithMessage(Messages.Validation.RegularExpression)
+          .Base64SizeCheck(50)
+          .Base64ExtensionCheck(["png","jpg"]);
 
         RuleFor(p => p.IsActive).NotNull().WithMessage(Messages.Validation.Required);
         RuleFor(p => p.Id).NotNull().WithMessage(Messages.Validation.Required);
