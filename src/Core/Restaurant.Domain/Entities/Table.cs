@@ -27,7 +27,9 @@ public class Table : EntityBase
 
     #region Relations
 
+    public List<Order>? Orders { get; set; }
     public Branch Branch { get; set; } = null!;
+
     public ICollection<ImageToTable>? Images { get; set; }
 
     #endregion Relations

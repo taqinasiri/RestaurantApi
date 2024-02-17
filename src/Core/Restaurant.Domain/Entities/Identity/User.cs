@@ -12,6 +12,7 @@ public class User : IdentityUser<long>, IAuditableEntity
     public virtual ICollection<UserLogin>? UserLogins { get; set; }
     public virtual ICollection<UserToken>? UserTokens { get; set; }
     public virtual ICollection<UserRole>? UserRoles { get; set; }
+    public virtual ICollection<Order>? Orders { get; set; }
     public ICollection<Branch>? Branches { get; set; }
     public Image? Avatar { get; set; }
 
