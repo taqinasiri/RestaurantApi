@@ -17,7 +17,7 @@ public class Order : EntityBase
     [MaxLength(500)]
     public string? Description { get; set; }
 
-    public bool IsPay { get; set; }
+    public OrderStatus Status { get; set; }
     public int RefId { get; set; }
 
     #region Relations
