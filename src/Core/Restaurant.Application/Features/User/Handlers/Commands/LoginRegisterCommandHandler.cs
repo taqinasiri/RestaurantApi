@@ -49,11 +49,6 @@ internal class LoginRegisterCommandHandler(IApplicationUserManager userManager
             {
                 UserName = phoneNumberOrEmail.Split('@')[0],
                 Email = phoneNumberOrEmail,
-                Avatar = new()
-                {
-                    Name = _siteSettings.UserDefaultAvatar,
-                    UploadDate = DateTime.Now
-                },
                 SendCodeLastTime = sendCodeLastTime
             };
             var result = await _userManager.CreateAsync(user);
@@ -72,11 +67,6 @@ internal class LoginRegisterCommandHandler(IApplicationUserManager userManager
             {
                 UserName = phoneNumberOrEmail,
                 PhoneNumber = phoneNumberOrEmail,
-                Avatar = new()
-                {
-                    Name = _siteSettings.UserDefaultAvatar,
-                    UploadDate = DateTime.Now
-                },
                 Email = $"{StringHelper.GenerateGuid()}@test.com",
                 SendCodeLastTime = sendCodeLastTime
             };

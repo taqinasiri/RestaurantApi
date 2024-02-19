@@ -6,9 +6,9 @@ namespace Restaurant.Api.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 [ApiResultFilter]
+[Authorize(PolicyNames.BranchManager,AuthenticationSchemes = "Bearer")]
 public class BranchController(IMediator mediator) : ControllerBase
 {
-    //[Authorize(PolicyNames.BranchManager,AuthenticationSchemes = "Bearer")]
     private readonly IMediator _mediator = mediator;
 
     #region GET
