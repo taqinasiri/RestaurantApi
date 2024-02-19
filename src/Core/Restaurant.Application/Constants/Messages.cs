@@ -10,6 +10,9 @@ public static class Messages
         public const string MaxFileSize = "اندازه فایل بیش از حد مجاز است";
         public const string FileExtensionNotValid = "فرمت فایل غیر مجاز میباشد";
         public const string GreaterThanZero = "0 باید بزرگتر از {PropertyName} باشد";
+        public const string FromAndToDateGreaterThan = "زمان شروع نمیتواند از زمان پایان بزرگتر باشد";
+        public const string GreaterThanNowDateTime = "زمان شروع نمیتواند عقبتر از زمان فعلی باشد";
+        public const string EqualFromAndToDateDays = "تاریخ شروع و پایان باید در یک روز باشد";
     }
 
     public static class Subjects

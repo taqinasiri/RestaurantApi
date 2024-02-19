@@ -48,4 +48,9 @@ public class BranchRepository(IMapper mapper,ApplicationDbContext context) : Gen
             ResultsCount = resultsCount,
         };
     }
+
+    public async ValueTask<bool> BranchIsOpen(long branchId,TimeOnly fromTime,TimeOnly toTime,PersianDayOfWeek dayOfWeek)
+        => await _branches.AnyAsync(b => b.Id == branchId &&
+                b.BranchWorkingHours != null &&
+                b.BranchWorkingHours.Any(w => w.From <= fromTime && w.To >= toTime && w.DayOfWeek == dayOfWeek));
 }

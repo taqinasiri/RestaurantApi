@@ -215,5 +215,7 @@ public interface IApplicationUserManager : IDisposable
 
     ValueTask<User> FindByEmailOrPhoneNumberForLogin(string emailOrPhoneNumber);
 
+    ValueTask<bool> CheckUserHasDuringOrder(long id);
+
     #endregion Custom
 }

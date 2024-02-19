@@ -44,6 +44,7 @@ public static class PersistenceServicesRegistration
         services.AddScoped<IImageRepository,ImageRepository>();
         services.AddScoped<IProductBranchRepository,ProductBranchRepository>();
         services.AddScoped<ITableRepository,TableRepository>();
+        services.AddScoped<IOrderRepository,OrderRepository>();
         return services;
     }
 

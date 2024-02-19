@@ -11,4 +11,6 @@ public interface IProductRepository : IGenericRepository<Product>
     ValueTask<GetByFilterResult<ProductForFilterList>> GetByFilterAsync(ProductFilters filter,PagingQuery paging,OrderingModel<ProductOrdering> ordering);
 
     Task<Product?> FindWithCategoriesByIdAsync(long id,bool isTracking = true);
+
+    ValueTask<List<(long ProductId, int Price)>> GetPrices(long[] ids);
 }

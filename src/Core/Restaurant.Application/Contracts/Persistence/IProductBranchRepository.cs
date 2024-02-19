@@ -9,4 +9,6 @@ public interface IProductBranchRepository
     ValueTask<bool> IsExists(long productId,long branchId);
 
     Task UpdateAsync(ProductToBranch productToBranch,bool isSave = true);
+
+    ValueTask<bool> IsExitsProductsInBranch(long branchId,long[] productIds);
 }

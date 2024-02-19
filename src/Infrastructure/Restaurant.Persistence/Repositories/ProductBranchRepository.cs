@@ -28,4 +28,11 @@ public class ProductBranchRepository(ApplicationDbContext context) : IProductBra
         _productToBranches.Update(productToBranch);
         await CheckIsSave(isSave);
     }
+
+    public async ValueTask<bool> IsExitsProductsInBranch(long branchId,long[] productIds)
+        => (await _productToBranches
+        .Where(pb => pb.BranchId == branchId && pb.IsActive && pb.IsAvailable)
+        .Select(pb => pb.ProductId)
+        .Intersect(productIds)
+        .CountAsync()) == productIds.Length;
 }

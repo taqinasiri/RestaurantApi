@@ -66,4 +66,10 @@ public class ProductRepository(IMapper mapper,ApplicationDbContext context) : Ge
 
     public async Task<Product?> FindWithCategoriesByIdAsync(long id,bool isTracking = true)
         => await _products.Include(p => p.Categories).ThenInclude(c => c.Category).SingleOrDefaultAsync(c => c.Id == id);
+
+    public async ValueTask<List<(long ProductId, int Price)>> GetPrices(long[] ids)
+        => await _products
+        .Where(p => ids.Contains(p.Id))
+        .Select(p => new ValueTuple<long,int>(p.Id,p.Price))
+        .ToListAsync();
 }
