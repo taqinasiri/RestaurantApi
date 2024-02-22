@@ -23,7 +23,7 @@ public class PayOrderCommandHandler(
 
         if(order.UserId != request.UserId)
         {
-            throw new BadRequestException([Messages.Errors.OrderIsNotForThisUser]);
+            throw new ForbiddenException(Messages.Errors.OrderIsNotForThisUser);
         }
 
         bool timeIsFree = await _orderRepository.TimeIsFreeForTable(order.FromTime,order.ToTime,order.TableId);

@@ -38,6 +38,12 @@ public class ExceptionHandlingMiddleware(RequestDelegate next)
             var result = new ApiResult(false,System.Net.HttpStatusCode.NotFound,exception.Message);
             await context.Response.WriteAsJsonAsync(result);
         }
+        catch(Application.Exceptions.ForbiddenException exception)
+        {
+            context.Response.StatusCode = StatusCodes.Status403Forbidden;
+            var result = new ApiResult(false,System.Net.HttpStatusCode.Forbidden,exception.Message);
+            await context.Response.WriteAsJsonAsync(result);
+        }
         //catch
         //{
         //    context.Response.StatusCode = StatusCodes.Status200OK;

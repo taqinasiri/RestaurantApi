@@ -46,11 +46,13 @@ public class PaymentController(IMediator mediator) : ControllerBase
     /// - Fill `CallbackUrl` with a url to which the user will be transferred after the payment operation, then you must confirm the payment operation with `Verify`
     ///
     /// - 404 : Order not found
-    /// - 400 : Order is not for this user | Time not free
+    /// - 403 : Order is not for this user
+    /// - 400 : Time not free
     /// </remarks>
     [Authorize(AuthenticationSchemes = "Bearer")]
     [HttpPost]
     [ProducesResponseOkApiResult<PayOrderCommandResponse>]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<IActionResult> Pay(PayOrderCommand command)
     {
         command.UserId = User.Identity!.GetUserId()!.ToLong();
