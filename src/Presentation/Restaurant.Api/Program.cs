@@ -27,9 +27,9 @@ builder.Services.AddCors(setupAction =>
 {
     string? ClientDomain = builder.Configuration.GetValue<string>("ClientDomain");
     if(!string.IsNullOrWhiteSpace(ClientDomain))
-        setupAction.AddPolicy(corsPolicyName,policy => { policy.WithOrigins(ClientDomain).AllowAnyHeader().AllowAnyMethod(); });
+        setupAction.AddPolicy(corsPolicyName,policy => policy.WithOrigins(ClientDomain,"https://sandbox.zarinpal.com").AllowAnyHeader().AllowAnyMethod());
     else
-        setupAction.AddPolicy(corsPolicyName,policy => { policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); });
+        setupAction.AddPolicy(corsPolicyName,policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 });
 
 #endregion Register Services

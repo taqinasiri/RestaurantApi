@@ -90,6 +90,6 @@ public class ApplicationUserManager(
     public async ValueTask<User> FindByEmailOrPhoneNumberForLogin(string emailOrPhoneNumber)
         => (await _users.Include(u => u.Avatar).SingleOrDefaultAsync(u => u.PhoneNumber == emailOrPhoneNumber || u.Email == emailOrPhoneNumber))!;
 
-    public async ValueTask<bool> CheckUserHasDuringOrder(long id)
-        => await _users.AnyAsync(u => u.Id == id && u.Orders != null && u.Orders.Any(o => o.Status == OrderStatus.During));
+    public async ValueTask<bool> CheckUserHasDuringOrPayingOrder(long id)
+        => await _users.AnyAsync(u => u.Id == id && u.Orders != null && u.Orders.Any(o => o.Status == OrderStatus.During || o.Status == OrderStatus.Paying));
 }

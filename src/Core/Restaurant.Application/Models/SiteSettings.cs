@@ -18,6 +18,7 @@ public class SiteSettings
     public CookieOptions CookieOptions { get; set; } = null!;
 
     public JwtConfigs JwtConfigs { get; set; } = null!;
+    public PaymentConfig PaymentConfig { get; set; } = null!;
 }
 
 public class ConnectionStrings
@@ -69,4 +70,9 @@ public class FileFolders
     public string ProductPictures { get; set; } = null!;
     public string BranchPictures { get; set; } = null!;
     public string TablePictures { get; set; } = null!;
+}
+
+public class PaymentConfig
+{
+    public string MerchantId { get; set; } = null!;
 }

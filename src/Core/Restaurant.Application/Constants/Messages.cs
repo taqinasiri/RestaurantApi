@@ -1,4 +1,6 @@
-﻿namespace Restaurant.Application.Constants;
+﻿using Org.BouncyCastle.Pqc.Crypto.Lms;
+
+namespace Restaurant.Application.Constants;
 
 public static class Messages
 {
@@ -25,5 +27,10 @@ public static class Messages
         public const string CodeNotValid = "کد درست نیست";
         public const string TitleOrSlugIsExists = "این عنوان یا Slug قبلا ثبت شده است";
         public const string FileUploadFiled = "آپلود فایل با شکست مواجه شد";
+        public const string TimeNotFree = "زمان آزاد نیست";
+        public const string BranchClosedInThisTime = "شعبه در این زمان بسته است";
+        public const string OrderIsNotForThisUser = "سفارش برای این کاربر نیست";
+        public const string UserHasDuringOrPayingOrder = "کاربر شفارش در حال انجام یا در حال پرداخت دارد";
+        public const string VerifyPaymentFiled = "تائید پرداخت با شکست مواجه شد";
     }
 }

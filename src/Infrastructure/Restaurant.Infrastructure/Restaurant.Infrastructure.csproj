@@ -8,7 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
-  </ItemGroup>
+    <PackageReference Include="Zarinpal" Version="3.0.1" />
+	</ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Restaurant.Application\Restaurant.Application.csproj" />

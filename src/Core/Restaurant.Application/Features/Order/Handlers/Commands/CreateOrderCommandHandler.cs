@@ -26,10 +26,10 @@ public class CreateOrderCommandHandler(
     {
         #region Validations
 
-        bool isHasDuringOrder = await _userManager.CheckUserHasDuringOrder(request.UserId);
+        bool isHasDuringOrder = await _userManager.CheckUserHasDuringOrPayingOrder(request.UserId);
         if(isHasDuringOrder)
         {
-            throw new BadRequestException(["User has during order"]);
+            throw new BadRequestException([Messages.Errors.UserHasDuringOrPayingOrder]);
         }
 
         var table = await _tableRepository.FindByIdAsync(request.TableId) ?? throw new NotFoundException("Table");
@@ -40,13 +40,13 @@ public class CreateOrderCommandHandler(
             request.FromTime.GetPersianDayOfWeek());
         if(!branchIsOpen)
         {
-            throw new BadRequestException(["Branch closed in this time"]);
+            throw new BadRequestException([Messages.Errors.BranchClosedInThisTime]);
         }
 
         bool timeIsFree = await _orderRepository.TimeIsFreeForTable(request.FromTime,request.ToTime,table.Id);
         if(!timeIsFree)
         {
-            throw new BadRequestException(["Time not free"]);
+            throw new BadRequestException([Messages.Errors.TimeNotFree]);
         }
 
         bool isExitsProducts = await _productBranchRepository.IsExitsProductsInBranch(table.BranchId,request.Items?.Select(i => i.ProductId).ToArray()!);
