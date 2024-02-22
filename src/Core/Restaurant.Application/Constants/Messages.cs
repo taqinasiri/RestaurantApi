@@ -32,5 +32,6 @@ public static class Messages
         public const string OrderIsNotForThisUser = "سفارش برای این کاربر نیست";
         public const string UserHasDuringOrPayingOrder = "کاربر شفارش در حال انجام یا در حال پرداخت دارد";
         public const string VerifyPaymentFiled = "تائید پرداخت با شکست مواجه شد";
+        public const string OrderPaid = "سفارش پرداخت شده است";
     }
 }

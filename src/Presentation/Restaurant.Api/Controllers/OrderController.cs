@@ -28,5 +28,26 @@ public class OrderController(IMediator mediator) : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>
+    /// Cancel a order
+    /// </summary>
+    /// <remarks>
+    /// - 404 : Order not found
+    /// - 403 : Order is not for this user
+    /// - 400 : Order Paid
+    /// </remarks>
+    [HttpPost("[action]/{orderId:long}")]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public async Task<IActionResult> Cancel(int orderId)
+    {
+        var command = new CancelOrderCommand
+        {
+            UserId = User.Identity!.GetUserId()!.ToLong(),
+            OrderId = orderId
+        };
+        await _mediator.Send(command);
+        return Ok();
+    }
+
     #endregion POST
 }
