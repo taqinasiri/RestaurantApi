@@ -22,6 +22,7 @@ public class PaymentController(IMediator mediator) : ControllerBase
     /// - 400 : Verify Payment Filed
     /// </remarks>
     [HttpGet("{orderId:long}")]
+    [ProducesResponseOkApiResult<VerifyOrderCommandResponse>]
     public async Task<IActionResult> Verify(long orderId,string authority,string status)
     {
         var response = await _mediator.Send(new VerifyOrderCommand()
@@ -49,12 +50,12 @@ public class PaymentController(IMediator mediator) : ControllerBase
     /// </remarks>
     [Authorize(AuthenticationSchemes = "Bearer")]
     [HttpPost]
+    [ProducesResponseOkApiResult<PayOrderCommandResponse>]
     public async Task<IActionResult> Pay(PayOrderCommand command)
     {
         command.UserId = User.Identity!.GetUserId()!.ToLong();
         var response = await _mediator.Send(command);
-        var targetUrl = new Uri($"https://sandbox.zarinpal.com/pg/StartPay/{response.Authority}");
-        return Ok(targetUrl.ToString());
+        return Ok(response);
     }
 
     #endregion POST

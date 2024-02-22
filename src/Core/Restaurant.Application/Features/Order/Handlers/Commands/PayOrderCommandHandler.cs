@@ -36,7 +36,7 @@ public class PayOrderCommandHandler(
         order.Status = OrderStatus.Paying;
         await _orderRepository.UpdateAsync(order);
 
-        var authority = await _paymentService.Payment(order.TotalPrice,_paymentConfig.MerchantId,request.CallbackUrl,user.Email,user.PhoneNumber);
-        return new(authority);
+        var (authority, getewayUrl) = await _paymentService.Payment(order.TotalPrice,_paymentConfig.MerchantId,request.CallbackUrl,user.Email,user.PhoneNumber);
+        return new(authority,getewayUrl);
     }
 }

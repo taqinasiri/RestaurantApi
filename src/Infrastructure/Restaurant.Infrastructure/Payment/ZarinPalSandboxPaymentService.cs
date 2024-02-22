@@ -7,7 +7,7 @@ public class ZarinPalSandboxPaymentService : IPaymentService
 {
     private readonly ZarinPal.Class.Payment _payment = new Expose().CreatePayment();
 
-    public async ValueTask<string> Payment(int amount,string merchantId,string callbackUrl,string? email,string? mobile,string? description = null)
+    public async ValueTask<(string Authority, string GetewayUrl)> Payment(int amount,string merchantId,string callbackUrl,string? email,string? mobile,string? description = null)
     {
         var result = await _payment.Request(new DtoRequest()
         {
@@ -19,7 +19,7 @@ public class ZarinPalSandboxPaymentService : IPaymentService
             Description = description ?? "Description"
         },ZarinPal.Class.Payment.Mode.sandbox);
 
-        return result.Authority;
+        return (result.Authority, $"https://sandbox.zarinpal.com/pg/StartPay/{result.Authority}");
     }
 
     public async ValueTask<(bool isSuccess, int? refId)> Verify(int amount,string merchantId,string authority,string status)

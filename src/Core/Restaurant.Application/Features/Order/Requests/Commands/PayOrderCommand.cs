@@ -7,4 +7,4 @@ public class PayOrderCommand : IRequest<PayOrderCommandResponse>
     public string CallbackUrl { get; set; } = null!;
 }
 
-public record PayOrderCommandResponse(string Authority);
+public record PayOrderCommandResponse(string Authority,string GetewayUrl);
