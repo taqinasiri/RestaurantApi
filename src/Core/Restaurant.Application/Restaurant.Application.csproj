@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <Folder Include="Configs\Policies\" />
-    <Folder Include="Features\Order\Handlers\Queries\" />
     <Folder Include="Features\ProductBranch\Handlers\Queries\" />
     <Folder Include="Features\ProductBranch\Requests\Queries\" />
   </ItemGroup>

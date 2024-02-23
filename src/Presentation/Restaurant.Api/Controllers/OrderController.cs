@@ -1,5 +1,7 @@
 ﻿using DNTCommon.Web.Core;
 using Restaurant.Application.Features.Order.Requests.Commands;
+using Restaurant.Application.Features.Order.Requests.Queries;
+using Restaurant.Application.Features.Product.Requests.Queries;
 
 namespace Restaurant.Api.Controllers;
 
@@ -10,6 +12,37 @@ namespace Restaurant.Api.Controllers;
 public class OrderController(IMediator mediator) : ControllerBase
 {
     private readonly IMediator _mediator = mediator;
+
+    #region GET
+
+    /// <summary>
+    /// Get User Orders by filter and ordering
+    /// </summary>
+    /// <param name="page">Page number</param>
+    /// <param name="take">items per page</param>
+    /// <param name="orderDescending">Default value : true</param>
+    /// <param name="orderBy">0 : Default | 1 : TotalPrice | 2 : PayDateTime </param>
+    [HttpGet]
+    [ProducesResponseOkApiResult<GetUserOrdersByFilterResponse>]
+    public async Task<IActionResult> Get(
+        int page = 1,int take = 10,
+        bool orderDescending = true,OrderOrdering? orderBy = null,
+        int? fromPrice = null,int? toPrice = null,
+        DateTime? fromDateTime = null,DateTime? toDateTime = null
+        )
+    {
+        var command = new GetUserOrdersByFilterQuery()
+        {
+            UserId = User.Identity!.GetUserId()!.ToLong(),
+            Filters = new(fromPrice,toPrice,fromDateTime,toDateTime),
+            Ordering = new(orderBy ?? OrderOrdering.Default,orderDescending),
+            Paging = new(page,take)
+        };
+        var response = await _mediator.Send(command);
+        return Ok(response);
+    }
+
+    #endregion GET
 
     #region POST
 
