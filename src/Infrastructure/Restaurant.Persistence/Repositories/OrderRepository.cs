@@ -50,4 +50,10 @@ public class OrderRepository(IMapper mapper,ApplicationDbContext context) : Gene
             ResultsCount = resultsCount,
         };
     }
+
+    public async ValueTask<GetUserOrderDetailsQueryResponse> GetUserOrderDetails(long orderId)
+        => (await _mapper.ProjectTo<GetUserOrderDetailsQueryResponse>(_orders.Where(o => o.Id == orderId)).FirstOrDefaultAsync())!;
+
+    public async ValueTask<bool> CheckOrderForUser(long orderId,long userId)
+        => await _orders.AnyAsync(o => o.Id == orderId && o.UserId == userId);
 }

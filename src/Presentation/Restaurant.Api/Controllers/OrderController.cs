@@ -1,7 +1,6 @@
 ﻿using DNTCommon.Web.Core;
 using Restaurant.Application.Features.Order.Requests.Commands;
 using Restaurant.Application.Features.Order.Requests.Queries;
-using Restaurant.Application.Features.Product.Requests.Queries;
 
 namespace Restaurant.Api.Controllers;
 
@@ -14,6 +13,23 @@ public class OrderController(IMediator mediator) : ControllerBase
     private readonly IMediator _mediator = mediator;
 
     #region GET
+
+    /// <summary>
+    /// Get user order details
+    /// </summary>
+    /// <remarks>
+    /// - 403 : Order is not for this user
+    /// </remarks>
+    [HttpGet("{id:long}")]
+    public async Task<IActionResult> Get(long id)
+    {
+        var response = await _mediator.Send(new GetUserOrderDetailsQuery()
+        {
+            OrderId = id,
+            UserId = User.Identity!.GetUserId()!.ToLong()
+        });
+        return Ok(response);
+    }
 
     /// <summary>
     /// Get User Orders by filter and ordering
