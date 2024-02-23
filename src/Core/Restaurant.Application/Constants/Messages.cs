@@ -33,5 +33,7 @@ public static class Messages
         public const string UserHasDuringOrPayingOrder = "کاربر شفارش در حال انجام یا در حال پرداخت دارد";
         public const string VerifyPaymentFiled = "تائید پرداخت با شکست مواجه شد";
         public const string OrderPaid = "سفارش پرداخت شده است";
+        public const string OnlyDuringOrdersCanBeDeleted = "فقط سفارش های در جریان را میتوان حذف کرد";
+        public const string OnlyPayingOrdersCanBeCanceled = "فقط سفارش های در جریان را میتوان حذف کرد";
     }
 }

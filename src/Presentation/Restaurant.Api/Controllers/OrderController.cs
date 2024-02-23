@@ -29,12 +29,12 @@ public class OrderController(IMediator mediator) : ControllerBase
     }
 
     /// <summary>
-    /// Cancel a order
+    /// Cancel a `Paying` order
     /// </summary>
     /// <remarks>
     /// - 404 : Order not found
     /// - 403 : Order is not for this user
-    /// - 400 : Order Paid
+    /// - 400 : Order status != Paying
     /// </remarks>
     [HttpPost("[action]/{orderId:long}")]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -50,4 +50,27 @@ public class OrderController(IMediator mediator) : ControllerBase
     }
 
     #endregion POST
+
+    #region DELETE
+
+    /// <summary>
+    /// Delete a `During` Order
+    /// </summary>
+    /// <remarks>
+    /// - 404 : Order not found
+    /// - 403 : Order is not for this user
+    /// - 400 : Order status != During
+    ///  </remarks>
+    [HttpDelete("{orderId:long}")]
+    public async Task<IActionResult> Delete(long orderId)
+    {
+        await _mediator.Send(new DeleteOrderCommand()
+        {
+            OrderId = orderId,
+            UserId = User.Identity!.GetUserId()!.ToLong(),
+        });
+        return Ok();
+    }
+
+    #endregion DELETE
 }

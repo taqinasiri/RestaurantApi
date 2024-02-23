@@ -1,4 +1,6 @@
-﻿namespace Restaurant.Application.Features.Order.Requests.Commands;
+﻿using Restaurant.Application.Features.Order.Common;
+
+namespace Restaurant.Application.Features.Order.Requests.Commands;
 
 public class CreateOrderCommand : IRequest<CreateOrderCommandResponse>
 {
@@ -7,9 +9,7 @@ public class CreateOrderCommand : IRequest<CreateOrderCommandResponse>
     public DateTime FromTime { get; set; }
     public DateTime ToTime { get; set; }
     public string? Description { get; set; }
-    public List<CreateOrderItemsDto> Items { get; set; } = null!;
+    public List<OrderItemsDto> Items { get; set; } = null!;
 }
-
-public record CreateOrderItemsDto(long ProductId,int Amount);
 
 public record CreateOrderCommandResponse(int TotalPrice);
