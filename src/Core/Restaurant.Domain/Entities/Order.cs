@@ -19,6 +19,7 @@ public class Order : EntityBase
 
     public OrderStatus Status { get; set; }
     public int RefId { get; set; }
+    public DateTime? PayDateTime { get; set; }
 
     #region Relations
 

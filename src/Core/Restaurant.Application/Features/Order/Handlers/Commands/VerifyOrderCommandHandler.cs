@@ -24,6 +24,7 @@ public class VerifyOrderCommandHandler(
 
         order.RefId = refId.Value;
         order.Status = Domain.Common.OrderStatus.Paid;
+        order.PayDateTime = DateTime.Now;
         await _orderRepository.UpdateAsync(order);
 
         return new(refId.Value);
