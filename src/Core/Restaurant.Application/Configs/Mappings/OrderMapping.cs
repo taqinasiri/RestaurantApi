@@ -11,6 +11,7 @@ public class OrderMapping : Profile
         CreateMap<CreateOrderCommand,Order>()
             .ForMember(dest => dest.Items,options => options.Ignore());
         CreateMap<Order,OrderForUserFilterList>();
+        CreateMap<Order,OrderForFilterList>();
         CreateMap<OrderItem,OrderItemDetailsDto>()
             .ForMember(dest => dest.Title,options => options.MapFrom(src => src.Product.Title));
         CreateMap<Order,GetUserOrderDetailsQueryResponse>()

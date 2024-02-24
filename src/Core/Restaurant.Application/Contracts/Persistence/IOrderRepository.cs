@@ -6,7 +6,9 @@ public interface IOrderRepository : IGenericRepository<Order>
 {
     ValueTask<bool> TimeIsFreeForTable(DateTime fromTime,DateTime toTime,long tableId);
 
-    ValueTask<GetByFilterResult<OrderForUserFilterList>> GetUserOrdersByFilterAsync(long userId,OrderFilters filter,PagingQuery paging,OrderingModel<OrderOrdering> ordering);
+    ValueTask<GetByFilterResult<OrderForUserFilterList>> GetUserOrdersByFilterAsync(long userId,UserOrderFilters filter,PagingQuery paging,OrderingModel<OrderOrdering> ordering);
+
+    ValueTask<GetByFilterResult<OrderForFilterList>> GetOrdersByFilterAsync(long adminId,bool isMainAdmin,OrderFilters filter,PagingQuery paging,OrderingModel<OrderOrdering> ordering);
 
     ValueTask<GetUserOrderDetailsQueryResponse> GetUserOrderDetails(long orderId);
 

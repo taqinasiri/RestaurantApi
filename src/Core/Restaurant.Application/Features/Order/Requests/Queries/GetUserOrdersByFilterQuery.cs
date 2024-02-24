@@ -7,17 +7,17 @@ public class GetUserOrdersByFilterQuery : IRequest<GetUserOrdersByFilterResponse
     public long UserId { get; set; }
     public OrderingModel<OrderOrdering>? Ordering { get; set; } = new(OrderOrdering.Default);
     public PagingRequest Paging { get; set; } = new();
-    public OrderFilters Filters { get; set; } = new();
+    public UserOrderFilters Filters { get; set; } = new();
 }
 
 #region Filter
 
-public enum OrderOrdering
+public enum UserOrderOrdering
 {
     Default, TotalPrice, PayDateTime
 }
 
-public record OrderFilters(int? FromPrice = null,int? ToPrice = null,DateTime? FromDateTime = null,DateTime? ToDateTime = null)
+public record UserOrderFilters(int? FromPrice = null,int? ToPrice = null,DateTime? FromDateTime = null,DateTime? ToDateTime = null)
 {
     public List<long>? CategoryIds { get; set; }
     public List<long>? AvailableInBranchIds { get; set; }
