@@ -97,7 +97,8 @@ public static class ApplicationServicesRegistration
             .AddPolicy(PolicyNames.CategoryManager,policy => policy.RequireRole(ConstantRoles.Admin,ConstantRoles.CategoryManager))
             .AddPolicy(PolicyNames.ProductManager,policy => policy.RequireRole(ConstantRoles.Admin,ConstantRoles.ProductManager))
             .AddPolicy(PolicyNames.BranchManager,policy => policy.RequireRole(ConstantRoles.Admin,ConstantRoles.BranchManager))
-            .AddPolicy(PolicyNames.TableManage,policy => policy.RequireRole(ConstantRoles.Admin,ConstantRoles.TableManager));
+            .AddPolicy(PolicyNames.TableManage,policy => policy.RequireRole(ConstantRoles.Admin,ConstantRoles.TableManager))
+            .AddPolicy(PolicyNames.OrderManage,policy => policy.RequireRole(ConstantRoles.Admin,ConstantRoles.OrderManage));
         return services;
     }
 }
