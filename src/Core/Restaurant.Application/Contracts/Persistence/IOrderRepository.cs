@@ -12,5 +12,9 @@ public interface IOrderRepository : IGenericRepository<Order>
 
     ValueTask<GetUserOrderDetailsQueryResponse> GetUserOrderDetails(long orderId);
 
+    ValueTask<GetOrderDetailsQueryResponse> GetOrderDetails(long orderId);
+
     ValueTask<bool> CheckOrderForUser(long orderId,long userId);
+
+    ValueTask<bool> CheckOrderBranchAdmin(long orderId,long adminId);
 }

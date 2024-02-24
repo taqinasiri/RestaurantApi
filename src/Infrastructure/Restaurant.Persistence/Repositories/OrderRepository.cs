@@ -2,6 +2,7 @@
 using Restaurant.Application.Features.Order.Requests.Queries;
 using Restaurant.Application.Models;
 using Restaurant.Domain.Entities.Identity;
+using System.Security.Cryptography;
 
 namespace Restaurant.Persistence.Repositories;
 
@@ -101,4 +102,10 @@ public class OrderRepository(IMapper mapper,ApplicationDbContext context) : Gene
             ResultsCount = resultsCount,
         };
     }
+
+    public async ValueTask<bool> CheckOrderBranchAdmin(long orderId,long adminId)
+        => await _orders.AnyAsync(o => o.Id == orderId && o.Table.Branch.AdminId == adminId);
+
+    public async ValueTask<GetOrderDetailsQueryResponse> GetOrderDetails(long orderId)
+        => (await _mapper.ProjectTo<GetOrderDetailsQueryResponse>(_orders.Where(o => o.Id == orderId)).FirstOrDefaultAsync())!;
 }

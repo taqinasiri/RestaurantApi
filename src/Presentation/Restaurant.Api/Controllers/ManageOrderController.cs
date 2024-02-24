@@ -42,5 +42,24 @@ public class ManageOrderController(IMediator mediator) : ControllerBase
         return Ok(response);
     }
 
+    /// <summary>
+    /// Get order details
+    /// </summary>
+    /// <remarks>
+    /// - 403 : Order is not for this user
+    /// - 404 : Order not found
+    /// </remarks>
+    [HttpGet("{id:long}")]
+    public async Task<IActionResult> Get(long id)
+    {
+        var response = await _mediator.Send(new GetOrderDetailsQuery()
+        {
+            IsMainAdmin = User.IsInRole(ConstantRoles.Admin),
+            OrderId = id,
+            AdminId = User.Identity!.GetUserId()!.ToLong()
+        });
+        return Ok(response);
+    }
+
     #endregion GET
 }

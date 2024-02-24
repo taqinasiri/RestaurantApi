@@ -33,6 +33,9 @@ public record class GetOrdersByFilterResponse
     public List<OrderForFilterList>? Orders { get; set; }
     public PagingResponse Paging { get; set; }
 }
-public record OrderForFilterList(long Id,int TotalPrice,OrderStatus Status,DateTime FromTime,DateTime ToTime,DateTime? PayDateTime);
+public record OrderForFilterList(long Id,int TotalPrice,OrderStatus Status,DateTime FromTime,DateTime ToTime,DateTime? PayDateTime,long UserId)
+{
+    public string UserName { get; set; } = null!;
+};
 
 #endregion Response
