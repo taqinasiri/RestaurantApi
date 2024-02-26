@@ -1,13 +1,18 @@
 ﻿using Restaurant.Application.Features.Order.Common;
 using Restaurant.Domain.Common;
+using Restaurant.Domain.Entities.Identity;
 
 namespace Restaurant.Application.Features.Order.Requests.Queries;
 
-public class GetOrderDetailsQuery : IRequest<GetOrderDetailsQueryResponse>
+public class GetOrderDetailsQuery : IRequest<GetOrderDetailsQueryResponse>, ICacheableMediatrQuery
 {
     public bool IsMainAdmin { get; set; }
     public long AdminId { get; set; }
     public long OrderId { get; set; }
+
+    public bool BypassCache { get; set; }
+    public TimeSpan? SlidingExpiration => CacheTimes.OrderDetails;
+    public string CacheKey => $"{CacheKeys.Order}-{OrderId}";
 }
 
 public record GetOrderDetailsQueryResponse(long Id,

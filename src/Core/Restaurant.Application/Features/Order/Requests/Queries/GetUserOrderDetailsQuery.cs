@@ -3,10 +3,14 @@ using Restaurant.Domain.Common;
 
 namespace Restaurant.Application.Features.Order.Requests.Queries;
 
-public class GetUserOrderDetailsQuery : IRequest<GetUserOrderDetailsQueryResponse>
+public class GetUserOrderDetailsQuery : IRequest<GetUserOrderDetailsQueryResponse>, ICacheableMediatrQuery
 {
     public long UserId { get; set; }
     public long OrderId { get; set; }
+
+    public bool BypassCache { get; set; }
+    public TimeSpan? SlidingExpiration => CacheTimes.OrderDetails;
+    public string CacheKey => $"{CacheKeys.Order}-{OrderId}-{UserId}";
 }
 
 public record GetUserOrderDetailsQueryResponse(long Id,

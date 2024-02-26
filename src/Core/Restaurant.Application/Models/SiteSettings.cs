@@ -19,6 +19,8 @@ public class SiteSettings
 
     public JwtConfigs JwtConfigs { get; set; } = null!;
     public PaymentConfig PaymentConfig { get; set; } = null!;
+
+    public CacheSettings CacheSettings { get; set; } = null!;
 }
 
 public class ConnectionStrings
@@ -75,4 +77,9 @@ public class FileFolders
 public class PaymentConfig
 {
     public string MerchantId { get; set; } = null!;
+}
+
+public class CacheSettings
+{
+    public int CacheExpirationMinutes { get; set; }
 }

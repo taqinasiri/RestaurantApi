@@ -4,6 +4,7 @@ global using MediatR;
 global using Microsoft.AspNetCore.Identity;
 global using Microsoft.Extensions.Logging;
 global using Microsoft.Extensions.Options;
+global using Restaurant.Application.Abstractions;
 global using Restaurant.Application.Constants;
 global using Restaurant.Application.Contracts.Infrastructure;
 global using Restaurant.Application.Contracts.Persistence;

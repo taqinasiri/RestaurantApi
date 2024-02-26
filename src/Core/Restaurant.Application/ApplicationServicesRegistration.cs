@@ -8,6 +8,7 @@ using Restaurant.Application.Contracts.Identity;
 using Restaurant.Domain.Constants;
 using System.Reflection;
 using System.Text;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace Restaurant.Application;
 
@@ -23,6 +24,10 @@ public static class ApplicationServicesRegistration
             config.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
             config.AddOpenBehavior(typeof(ValidationBehavior<,>));
         });
+        services.AddTransient(typeof(IPipelineBehavior<,>),typeof(CachingBehavior<,>));
+
+        services.AddDistributedMemoryCache();
+        services.Configure<CacheSettings>(configuration.GetSection(nameof(CacheSettings)));
 
         var jwtConfigs = configuration.Get<SiteSettings>(configuration.Bind)!.JwtConfigs;
         services.AddJWTAuthentication(jwtConfigs);
