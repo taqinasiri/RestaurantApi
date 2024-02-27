@@ -487,4 +487,5 @@ $RECYCLE.BIN/
 # Custom
 TestController.cs
 TempMail/
+TempSms/
 Images/
