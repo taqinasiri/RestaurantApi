@@ -1,60 +1,87 @@
-using Restaurant.Api.Middlewares;
+﻿using Restaurant.Api.Middlewares;
 using Restaurant.Api.Models;
 using Restaurant.Application;
 using Restaurant.Infrastructure;
 using Restaurant.Persistence;
+using Serilog;
+using Serilog.Events;
 
-var builder = WebApplication.CreateBuilder(args);
-string corsPolicyName = "AllowOrigin";
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.File(Path.Combine(Directory.GetCurrentDirectory(),"logs","log-.log"),
+     rollingInterval: RollingInterval.Day,
+     outputTemplate: "[{Level:u3}] | {Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} | {UserName}:{UserId} | {Message:lj}{NewLine}{Exception}")
+    .MinimumLevel.Override("Microsoft.AspNetCore",LogEventLevel.Warning)
+    .Enrich.FromLogContext()
+    .CreateLogger();
 
-#region Register Services
-
-// Add services to the container.
-builder.Services.AddControllers(configure =>
+try
 {
-    configure.Filters.Add(new ProducesResponseTypeAttribute(typeof(ApiResult),StatusCodes.Status200OK));
-    configure.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status400BadRequest));
-});
-builder.Services.AddApplicationServices(builder.Configuration);
-builder.Services.AddPersistenceServices(builder.Configuration);
-builder.Services.AddInfrastructureServices(builder.Configuration,builder.Environment);
+    Log.Information("Starting web application");
 
-// Swagger/OpenAPI
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.RegisterSwagger();
+    var builder = WebApplication.CreateBuilder(args);
+    builder.Host.UseSerilog();
+    string corsPolicyName = "AllowOrigin";
 
-builder.Services.AddCors(setupAction =>
-{
-    string? ClientDomain = builder.Configuration.GetValue<string>("ClientDomain");
-    if(!string.IsNullOrWhiteSpace(ClientDomain))
-        setupAction.AddPolicy(corsPolicyName,policy => policy.WithOrigins(ClientDomain,"https://sandbox.zarinpal.com").AllowAnyHeader().AllowAnyMethod());
-    else
-        setupAction.AddPolicy(corsPolicyName,policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-});
+    #region Register Services
 
-#endregion Register Services
+    // Add services to the container.
+    builder.Services.AddControllers(configure =>
+    {
+        configure.Filters.Add(new ProducesResponseTypeAttribute(typeof(ApiResult),StatusCodes.Status200OK));
+        configure.Filters.Add(new ProducesResponseTypeAttribute(StatusCodes.Status400BadRequest));
+    });
+    builder.Services.AddApplicationServices(builder.Configuration);
+    builder.Services.AddPersistenceServices(builder.Configuration);
+    builder.Services.AddInfrastructureServices(builder.Configuration,builder.Environment);
 
-var app = builder.Build();
-app.Services.InitializeDb(builder.Configuration);
+    // Swagger/OpenAPI
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.RegisterSwagger();
 
-#region Pipeline
+    builder.Services.AddCors(setupAction =>
+    {
+        string? ClientDomain = builder.Configuration.GetValue<string>("ClientDomain");
+        if(!string.IsNullOrWhiteSpace(ClientDomain))
+            setupAction.AddPolicy(corsPolicyName,policy => policy.WithOrigins(ClientDomain,"https://sandbox.zarinpal.com").AllowAnyHeader().AllowAnyMethod());
+        else
+            setupAction.AddPolicy(corsPolicyName,policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+    });
 
-app.UseCors(corsPolicyName);
-app.UseStaticFiles();
-if(app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(setupAction => setupAction.UseSwaggerUIOptions());
+    #endregion Register Services
+
+    var app = builder.Build();
+    app.Services.InitializeDb(builder.Configuration);
+
+    #region Pipeline
+
+    app.UseCors(corsPolicyName);
+    app.UseStaticFiles();
+    app.UseSerilogRequestLogging();
+
+    if(app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI(setupAction => setupAction.UseSwaggerUIOptions());
+    }
+
+    app.UseHttpsRedirection();
+    app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+    app.UseAuthentication();
+    app.UseAuthorization();
+
+    app.UseMiddleware<LogUserDataMiddleware>();
+    app.MapControllers();
+
+    app.Run();
+
+    #endregion Pipeline
 }
-
-app.UseHttpsRedirection();
-app.UseMiddleware<ExceptionHandlingMiddleware>();
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
-
-#endregion Pipeline
+catch(Exception ex)
+{
+    Log.Fatal(ex,"Application terminated unexpectedly");
+}
+finally
+{
+    Log.CloseAndFlush();
+}
