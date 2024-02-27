@@ -5,7 +5,7 @@ public class GetCategoriesTreeQuery : IRequest<GetCategoriesTreeResponse>, ICach
     public byte Depth { get; set; }
 
     public bool BypassCache { get; set; }
-    public string CacheKey => CacheKeys.CategoryTree;
+    public string CacheKey => $"{CacheKeys.CategoryTree}-{Depth}";
     public TimeSpan? SlidingExpiration { get; set; }
 }
 
