@@ -5,13 +5,11 @@ namespace Restaurant.Application.Features.User.Handlers.Commands;
 
 internal class LoginRegisterCommandHandler(IApplicationUserManager userManager
     ,IOptionsSnapshot<SiteSettings> options,
-    IEmailSenderService emailSender,
-    ISmsSenderService smsSender) : IRequestHandler<LoginRegisterCommand,LoginRegisterResponse>
+    IEmailSenderService emailSender) : IRequestHandler<LoginRegisterCommand,LoginRegisterResponse>
 {
     private readonly IApplicationUserManager _userManager = userManager;
     private readonly SiteSettings _siteSettings = options.Value;
     private readonly IEmailSenderService _emailSender = emailSender;
-    private readonly ISmsSenderService _smsSender = smsSender;
 
     public async Task<LoginRegisterResponse> Handle(LoginRegisterCommand request,CancellationToken cancellationToken)
     {
@@ -39,7 +37,7 @@ internal class LoginRegisterCommandHandler(IApplicationUserManager userManager
             else
             {
                 var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user,user.PhoneNumber!);
-                await _smsSender.SendOTP(user.PhoneNumber!,_siteSettings.SmsSettings.LoginCodeTemplateName,code);
+                //TODO : Send SMS
             }
 
             return new(phoneNumberOrEmail,_siteSettings.WaitForSendCodeSeconds,user.SendCodeLastTime);
@@ -78,7 +76,7 @@ internal class LoginRegisterCommandHandler(IApplicationUserManager userManager
                 throw new BadRequestException(result.GetErrors());
             }
             var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user,user.PhoneNumber);
-            await _smsSender.SendOTP(user.PhoneNumber!,_siteSettings.SmsSettings.LoginCodeTemplateName,code);
+            //TODO : Send SMS
         }
 
         return new(phoneNumberOrEmail,_siteSettings.WaitForSendCodeSeconds,user.SendCodeLastTime);

@@ -21,7 +21,6 @@ public class SiteSettings
     public PaymentConfig PaymentConfig { get; set; } = null!;
 
     public CacheSettings CacheSettings { get; set; } = null!;
-    public SmsSettings SmsSettings { get; set; } = null!;
 }
 
 public class ConnectionStrings
@@ -83,12 +82,4 @@ public class PaymentConfig
 public class CacheSettings
 {
     public int CacheExpirationMinutes { get; set; }
-}
-
-public class SmsSettings
-{
-    public string ApiKey { get; set; } = null!;
-    public string Sender { get; set; } = null!;
-    public string LoginCodeTemplateName { get; set; } = null!;
-    public string LocalWritePath { get; set; } = null!;
 }
