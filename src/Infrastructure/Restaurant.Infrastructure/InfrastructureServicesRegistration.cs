@@ -6,6 +6,7 @@ using Restaurant.Application.Models;
 using Restaurant.Infrastructure.File;
 using Restaurant.Infrastructure.Mail;
 using Restaurant.Infrastructure.Payment;
+using Restaurant.Infrastructure.Sms;
 
 namespace Restaurant.Infrastructure;
 
@@ -17,11 +18,13 @@ public static class InfrastructureServicesRegistration
         if(environment.IsDevelopment())
         {
             services.AddScoped<IEmailSenderService,LocalEmailWriterService>();
+            services.AddScoped<ISmsSenderService,LocalSmsWriterService>();
             services.AddScoped<IPaymentService,ZarinPalSandboxPaymentService>();
         }
         else
         {
             services.AddScoped<IEmailSenderService,EmailSenderService>();
+            services.AddScoped<ISmsSenderService,KavenegarSmsSenderService>();
             services.AddScoped<IPaymentService,ZarinPalPaymentService>();
         }
         services.AddScoped<IFileUploadService,FileUploadService>();
