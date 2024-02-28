@@ -1,6 +1,4 @@
-﻿using Org.BouncyCastle.Pqc.Crypto.Lms;
-
-namespace Restaurant.Application.Constants;
+﻿namespace Restaurant.Application.Constants;
 
 public static class Messages
 {

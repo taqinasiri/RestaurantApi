@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -36,7 +35,7 @@ namespace Restaurant.Persistence.Migrations
                 table: "Categories",
                 type: "datetime2",
                 nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                defaultValue: new DateTime(1,1,1,0,0,0,0,DateTimeKind.Unspecified));
 
             migrationBuilder.AddColumn<string>(
                 name: "ModifiedByBrowserName",

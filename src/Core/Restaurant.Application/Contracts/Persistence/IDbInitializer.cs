@@ -1,6 +1,4 @@
-﻿using Restaurant.Application.Models;
-
-namespace Restaurant.Application.Contracts.Persistence;
+﻿namespace Restaurant.Application.Contracts.Persistence;
 
 public interface IDbInitializer
 {

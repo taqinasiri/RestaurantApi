@@ -1,6 +1,4 @@
-﻿using Restaurant.Application.Models;
-
-namespace Restaurant.Application.Exceptions;
+﻿namespace Restaurant.Application.Exceptions;
 
 public class ValidationException(List<ValidationError> errors) : ApplicationException
 {

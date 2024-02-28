@@ -34,7 +34,7 @@ namespace Restaurant.Persistence.Migrations
             migrationBuilder.AddPrimaryKey(
                 name: "PK_UserRoles",
                 table: "UserRoles",
-                columns: new[] { "UserId", "RoleId" });
+                columns: new[] { "UserId","RoleId" });
 
             migrationBuilder.AddForeignKey(
                 name: "FK_UserRoles_Roles_RoleId",
@@ -80,7 +80,7 @@ namespace Restaurant.Persistence.Migrations
             migrationBuilder.AddPrimaryKey(
                 name: "PK_UserRolesProjects",
                 table: "UserRolesProjects",
-                columns: new[] { "UserId", "RoleId" });
+                columns: new[] { "UserId","RoleId" });
 
             migrationBuilder.AddForeignKey(
                 name: "FK_UserRolesProjects_Roles_RoleId",

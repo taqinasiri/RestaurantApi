@@ -1,5 +1,4 @@
 ﻿using Restaurant.Application.Features.Table.Common;
-using Restaurant.Domain.Entities.Identity;
 
 namespace Restaurant.Application.Features.Table.Requests.Queries;
 

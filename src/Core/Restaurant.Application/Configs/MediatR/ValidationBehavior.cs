@@ -1,6 +1,4 @@
-﻿using Restaurant.Application.Models;
-
-namespace Restaurant.Application.Configs.MediatR;
+﻿namespace Restaurant.Application.Configs.MediatR;
 
 public class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators) : IPipelineBehavior<TRequest,TResponse>
 {

@@ -2,9 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Restaurant.Application.Contracts.Identity;
-using Restaurant.Application.Contracts.Persistence;
 using Restaurant.Application.Models;
-using Restaurant.Persistence.Contexts;
 using Restaurant.Persistence.Interceptors;
 using Restaurant.Persistence.Repositories;
 using Restaurant.Persistence.Services;

@@ -5,5 +5,5 @@ public class BranchWorkingHoursRepository(ApplicationDbContext context) : Generi
     private DbSet<BranchWorkingHours> _workingHours = context.Set<BranchWorkingHours>();
 
     public async ValueTask<List<BranchWorkingHours>> GetByBranchId(long branchId)
-        => await _workingHours.Where(w => w.BranchId == branchId).ToListAsync() ;
+        => await _workingHours.Where(w => w.BranchId == branchId).ToListAsync();
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -54,21 +53,21 @@ namespace Restaurant.Persistence.Migrations
                 name: "UserBranchRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<long>(type: "bigint", nullable: false),
-                    RoleId = table.Column<long>(type: "bigint", nullable: false),
-                    BranchId = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedByBrowserName = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    CreatedByIp = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    CreatedByUserId = table.Column<long>(type: "bigint", nullable: true),
-                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedByBrowserName = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    ModifiedByIp = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    ModifiedByUserId = table.Column<long>(type: "bigint", nullable: true),
-                    ModifiedDateTime = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UserId = table.Column<long>(type: "bigint",nullable: false),
+                    RoleId = table.Column<long>(type: "bigint",nullable: false),
+                    BranchId = table.Column<long>(type: "bigint",nullable: false),
+                    CreatedByBrowserName = table.Column<string>(type: "nvarchar(1000)",maxLength: 1000,nullable: true),
+                    CreatedByIp = table.Column<string>(type: "nvarchar(255)",maxLength: 255,nullable: true),
+                    CreatedByUserId = table.Column<long>(type: "bigint",nullable: true),
+                    CreatedDateTime = table.Column<DateTime>(type: "datetime2",nullable: false),
+                    ModifiedByBrowserName = table.Column<string>(type: "nvarchar(1000)",maxLength: 1000,nullable: true),
+                    ModifiedByIp = table.Column<string>(type: "nvarchar(255)",maxLength: 255,nullable: true),
+                    ModifiedByUserId = table.Column<long>(type: "bigint",nullable: true),
+                    ModifiedDateTime = table.Column<DateTime>(type: "datetime2",nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserBranchRoles", x => new { x.UserId, x.RoleId, x.BranchId });
+                    table.PrimaryKey("PK_UserBranchRoles",x => new { x.UserId,x.RoleId,x.BranchId });
                     table.ForeignKey(
                         name: "FK_UserBranchRoles_Branches_BranchId",
                         column: x => x.BranchId,

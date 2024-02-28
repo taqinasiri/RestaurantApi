@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using Restaurant.Application.Features.Order.Requests.Queries;
 using Restaurant.Application.Models;
-using Restaurant.Domain.Entities.Identity;
-using System.Security.Cryptography;
 
 namespace Restaurant.Persistence.Repositories;
 

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using Polly;
 using Restaurant.Application.Contracts.Identity;
 
 namespace Restaurant.Persistence.Services.Identity;

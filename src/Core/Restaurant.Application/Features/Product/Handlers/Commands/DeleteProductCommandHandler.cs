@@ -1,6 +1,6 @@
 ﻿using Restaurant.Application.Features.Product.Requests.Commands;
 
-namespace Restaurant.Application.Features.Product.Handlers;
+namespace Restaurant.Application.Features.Product.Handlers.Commands;
 
 public class DeleteProductCommandHandler(
     IProductRepository productRepository) : IRequestHandler<DeleteProductCommand>

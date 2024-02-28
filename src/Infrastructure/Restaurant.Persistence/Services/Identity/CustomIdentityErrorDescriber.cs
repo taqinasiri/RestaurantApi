@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace Restaurant.Persistence.Services.Identity;
+﻿namespace Restaurant.Persistence.Services.Identity;
 
 public class CustomIdentityErrorDescriber : IdentityErrorDescriber
 {

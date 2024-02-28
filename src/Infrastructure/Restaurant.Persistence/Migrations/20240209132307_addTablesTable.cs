@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -15,28 +14,28 @@ namespace Restaurant.Persistence.Migrations
                 name: "Tables",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    Slug = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
-                    Space = table.Column<byte>(type: "tinyint", nullable: false),
-                    RentalMinutePrice = table.Column<int>(type: "int", nullable: false),
-                    IsAvailable = table.Column<bool>(type: "bit", nullable: false),
-                    BranchId = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedByBrowserName = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    CreatedByIp = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    CreatedByUserId = table.Column<long>(type: "bigint", nullable: true),
-                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedByBrowserName = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    ModifiedByIp = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    ModifiedByUserId = table.Column<long>(type: "bigint", nullable: true),
-                    ModifiedDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    Id = table.Column<long>(type: "bigint",nullable: false)
+                        .Annotation("SqlServer:Identity","1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(150)",maxLength: 150,nullable: false),
+                    Slug = table.Column<string>(type: "nvarchar(100)",maxLength: 100,nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(2000)",maxLength: 2000,nullable: true),
+                    Space = table.Column<byte>(type: "tinyint",nullable: false),
+                    RentalMinutePrice = table.Column<int>(type: "int",nullable: false),
+                    IsAvailable = table.Column<bool>(type: "bit",nullable: false),
+                    BranchId = table.Column<long>(type: "bigint",nullable: false),
+                    CreatedByBrowserName = table.Column<string>(type: "nvarchar(1000)",maxLength: 1000,nullable: true),
+                    CreatedByIp = table.Column<string>(type: "nvarchar(255)",maxLength: 255,nullable: true),
+                    CreatedByUserId = table.Column<long>(type: "bigint",nullable: true),
+                    CreatedDateTime = table.Column<DateTime>(type: "datetime2",nullable: false),
+                    ModifiedByBrowserName = table.Column<string>(type: "nvarchar(1000)",maxLength: 1000,nullable: true),
+                    ModifiedByIp = table.Column<string>(type: "nvarchar(255)",maxLength: 255,nullable: true),
+                    ModifiedByUserId = table.Column<long>(type: "bigint",nullable: true),
+                    ModifiedDateTime = table.Column<DateTime>(type: "datetime2",nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit",nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tables", x => x.Id);
+                    table.PrimaryKey("PK_Tables",x => x.Id);
                     table.ForeignKey(
                         name: "FK_Tables_Branches_BranchId",
                         column: x => x.BranchId,
@@ -49,20 +48,20 @@ namespace Restaurant.Persistence.Migrations
                 name: "ImageToTable",
                 columns: table => new
                 {
-                    ImageId = table.Column<long>(type: "bigint", nullable: false),
-                    TableId = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedByBrowserName = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    CreatedByIp = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    CreatedByUserId = table.Column<long>(type: "bigint", nullable: true),
-                    CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedByBrowserName = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    ModifiedByIp = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    ModifiedByUserId = table.Column<long>(type: "bigint", nullable: true),
-                    ModifiedDateTime = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    ImageId = table.Column<long>(type: "bigint",nullable: false),
+                    TableId = table.Column<long>(type: "bigint",nullable: false),
+                    CreatedByBrowserName = table.Column<string>(type: "nvarchar(1000)",maxLength: 1000,nullable: true),
+                    CreatedByIp = table.Column<string>(type: "nvarchar(255)",maxLength: 255,nullable: true),
+                    CreatedByUserId = table.Column<long>(type: "bigint",nullable: true),
+                    CreatedDateTime = table.Column<DateTime>(type: "datetime2",nullable: false),
+                    ModifiedByBrowserName = table.Column<string>(type: "nvarchar(1000)",maxLength: 1000,nullable: true),
+                    ModifiedByIp = table.Column<string>(type: "nvarchar(255)",maxLength: 255,nullable: true),
+                    ModifiedByUserId = table.Column<long>(type: "bigint",nullable: true),
+                    ModifiedDateTime = table.Column<DateTime>(type: "datetime2",nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ImageToTable", x => new { x.TableId, x.ImageId });
+                    table.PrimaryKey("PK_ImageToTable",x => new { x.TableId,x.ImageId });
                     table.ForeignKey(
                         name: "FK_ImageToTable_Images_ImageId",
                         column: x => x.ImageId,

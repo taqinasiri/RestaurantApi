@@ -14,18 +14,18 @@ namespace Restaurant.Persistence.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "ntext", nullable: true),
-                    Slug = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Picture = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    ParentId = table.Column<long>(type: "bigint", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    Id = table.Column<long>(type: "bigint",nullable: false)
+                        .Annotation("SqlServer:Identity","1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(100)",maxLength: 100,nullable: false),
+                    Description = table.Column<string>(type: "ntext",nullable: true),
+                    Slug = table.Column<string>(type: "nvarchar(100)",maxLength: 100,nullable: false),
+                    Picture = table.Column<string>(type: "nvarchar(50)",maxLength: 50,nullable: true),
+                    ParentId = table.Column<long>(type: "bigint",nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit",nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.PrimaryKey("PK_Categories",x => x.Id);
                     table.ForeignKey(
                         name: "FK_Categories_Categories_ParentId",
                         column: x => x.ParentId,

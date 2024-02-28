@@ -1,6 +1,4 @@
-﻿using Org.BouncyCastle.Tls;
-
-namespace Restaurant.Application.Extensions;
+﻿namespace Restaurant.Application.Extensions;
 
 public static class StringExtensions
 {

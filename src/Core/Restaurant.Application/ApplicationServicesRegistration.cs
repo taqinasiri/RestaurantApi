@@ -8,7 +8,6 @@ using Restaurant.Application.Contracts.Identity;
 using Restaurant.Domain.Constants;
 using System.Reflection;
 using System.Text;
-using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace Restaurant.Application;
 

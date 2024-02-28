@@ -1,5 +1,4 @@
-﻿using Restaurant.Application.Contracts.Persistence;
-using Restaurant.Application.Features.Product.Requests.Commands;
+﻿using Restaurant.Application.Features.Product.Requests.Commands;
 
 namespace Restaurant.Application.Features.Product.Handlers.Commands;
 

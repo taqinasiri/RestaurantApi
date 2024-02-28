@@ -1,6 +1,5 @@
 ﻿using Restaurant.Application.Features.Order.Common;
 using Restaurant.Domain.Common;
-using Restaurant.Domain.Entities.Identity;
 
 namespace Restaurant.Application.Features.Order.Requests.Queries;
 

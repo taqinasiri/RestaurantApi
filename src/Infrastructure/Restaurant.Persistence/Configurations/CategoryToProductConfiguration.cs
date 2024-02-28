@@ -1,6 +1,4 @@
-﻿using Restaurant.Domain.Entities;
-
-namespace Restaurant.Persistence.Configurations;
+﻿namespace Restaurant.Persistence.Configurations;
 
 public class CategoryToProductConfiguration : IEntityTypeConfiguration<CategoryToProduct>
 {
