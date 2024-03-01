@@ -23,4 +23,8 @@ Before running the app, change the connection string in the **[appsetting.json](
 
 ### Order and Payment 💸
 
+ - 🔵 Blue   : Font-End
+ - 🔴 Red    : Back-End
+ - 🟡 Yellow : Third party service
+
 ![](docs/Order.png)
