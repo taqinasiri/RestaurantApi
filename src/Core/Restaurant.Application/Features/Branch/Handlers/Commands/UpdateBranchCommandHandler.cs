@@ -31,7 +31,7 @@ public class UpdateBranchCommandHandler(
         var branch = await _branchRepository.FindByIdAsync(request.Id,false) ?? throw new NotFoundException("Branch");
 
         bool isExists = await _branchRepository.IsExistsByTitleOrSlug(request.Title,request.Slug);
-        if(isExists && (branch.Title != request.Title || branch.Slug != request.Slug))
+        if(isExists && (branch.Title != request.Title && branch.Slug != request.Slug))
         {
             throw new BadRequestException([Messages.Errors.TitleOrSlugIsExists]);
         }

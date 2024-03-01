@@ -18,7 +18,7 @@ public class UpdateCategoryCommandHandler(
         var caregory = await _categoryRepository.FindByIdAsync(request.Id,false) ?? throw new NotFoundException("Category");
 
         bool isExists = await _categoryRepository.IsExistsByTitleOrSlug(request.Title,request.Slug);
-        if(isExists && (caregory.Title != request.Title || caregory.Slug != request.Slug))
+        if(isExists && (caregory.Title != request.Title && caregory.Slug != request.Slug))
         {
             throw new BadRequestException([Messages.Errors.TitleOrSlugIsExists]);
         }

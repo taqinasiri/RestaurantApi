@@ -22,7 +22,7 @@ public class UpdateTableCommandHandler(
         var table = await _tableRepository.FindByIdAsync(request.Id) ?? throw new NotFoundException("Table");
 
         bool isExists = await _tableRepository.IsExistsByTitleOrSlug(request.Title,request.Slug);
-        if(isExists && (table.Title != request.Title || table.Slug != request.Slug))
+        if(isExists && (table.Title != request.Title && table.Slug != request.Slug))
         {
             throw new BadRequestException([Messages.Errors.TitleOrSlugIsExists]);
         }

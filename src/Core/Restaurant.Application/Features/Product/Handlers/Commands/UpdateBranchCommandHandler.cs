@@ -22,7 +22,7 @@ public class UpdateProductCommandHandler(
         var product = await _productRepository.FindWithCategoriesByIdAsync(request.Id,false) ?? throw new NotFoundException("Product");
 
         bool isExists = await _productRepository.IsExistsByTitleOrSlug(request.Title,request.Slug);
-        if(isExists && (product.Title != request.Title || product.Slug != request.Slug))
+        if(isExists && (product.Title != request.Title && product.Slug != request.Slug))
         {
             throw new BadRequestException([Messages.Errors.TitleOrSlugIsExists]);
         }
