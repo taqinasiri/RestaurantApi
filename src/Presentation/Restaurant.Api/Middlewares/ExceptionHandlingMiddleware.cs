@@ -14,7 +14,7 @@ public class ExceptionHandlingMiddleware(RequestDelegate next)
         }
         catch(Application.Exceptions.BadRequestException exception)
         {
-            context.Response.StatusCode = StatusCodes.Status200OK;
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
             var result = new ApiResult(false,System.Net.HttpStatusCode.BadRequest,exception.Message)
             {
                 Errors = exception.Errors
@@ -24,7 +24,7 @@ public class ExceptionHandlingMiddleware(RequestDelegate next)
         }
         catch(Application.Exceptions.ValidationException exception)
         {
-            context.Response.StatusCode = StatusCodes.Status200OK;
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
             var result = new ApiResult(false,System.Net.HttpStatusCode.BadRequest,"Validation Error")
             {
                 ValidationErrors = exception.Errors ?? []
@@ -34,7 +34,7 @@ public class ExceptionHandlingMiddleware(RequestDelegate next)
         }
         catch(Application.Exceptions.NotFoundException exception)
         {
-            context.Response.StatusCode = StatusCodes.Status200OK;
+            context.Response.StatusCode = StatusCodes.Status404NotFound;
             var result = new ApiResult(false,System.Net.HttpStatusCode.NotFound,exception.Message);
             await context.Response.WriteAsJsonAsync(result);
         }

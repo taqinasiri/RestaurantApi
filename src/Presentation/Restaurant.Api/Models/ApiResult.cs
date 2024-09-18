@@ -6,8 +6,8 @@ namespace Restaurant.Api.Models;
 
 public class ApiResult(bool isSuccess,HttpStatusCode statusCode,string message = null!)
 {
-    public bool IsSuccess { get; set; } = isSuccess;
-    public HttpStatusCode StatusCode { get; set; } = statusCode;
+    //public bool IsSuccess { get; set; } = isSuccess;
+    //public HttpStatusCode StatusCode { get; set; } = statusCode;
     public string Message { get; set; } = message ?? statusCode.ToString();
 
     #region Errors
