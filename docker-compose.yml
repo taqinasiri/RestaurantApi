@@ -9,7 +9,9 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
-      - wwwroot_data:/home/app/wwwroot
+      - wwwroot_data:/app/wwwroot
+    depends_on:
+      - sqlserver
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
